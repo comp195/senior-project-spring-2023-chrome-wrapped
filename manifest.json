@@ -1,7 +1,0 @@
-{
-    // Comments are accepted in the manifest, even though it is JSON.
-    "manifest_version": 3,
-    "name": "Chrome Wrapped",
-    "description": "A Chrome Extension to improve browsing history experience",
-    "version": "0.0.1"
-}
