@@ -61,12 +61,12 @@ const Tab = ({name, handler}) => {
     borderRadius: 4
   }
   return (
-    <div 
+    <button 
     style={tabStyle} 
     onClick={handler} 
     >
       {name}
-    </div>
+    </button>
   )
 }
 export default App
