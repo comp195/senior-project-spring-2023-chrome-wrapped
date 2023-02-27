@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+/* Button Hover: Change background */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Button Active: Change background */
+.tab button.active {
+  background-color: #ccc;
+} 
