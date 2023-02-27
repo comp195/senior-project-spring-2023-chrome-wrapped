@@ -11,9 +11,10 @@
   }
   },
   "icons":{
-    "16":"./chromeIcon16.png",
+    "128":"./chromeIcon128.png",
     "48":"./chromeIcon48.png",
-    "128":"./chromeIcon128.png"
+    "16":"./chromeIcon16.png"
+
   },
   "permissions": [
     "scripting",
