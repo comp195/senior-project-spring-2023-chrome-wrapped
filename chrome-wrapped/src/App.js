@@ -1,4 +1,5 @@
 import './App.css'
+import Body from './components/Body'
 import {useState} from 'react'
 
 const App = () => {
@@ -9,6 +10,7 @@ const App = () => {
     <div>
       <Header/>
       <TabRow currentTab={currentTab} setCurrentTab={setCurrentTab}/>
+      <Body currentTab={currentTab}/>
     </div>
   )
 }
