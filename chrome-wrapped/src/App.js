@@ -69,5 +69,5 @@ const Tab = ({name, handler}) => {
     </div>
   )
 }
-
+export default App
 
