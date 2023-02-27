@@ -16,6 +16,7 @@
     "128":"./chromeIcon128.png"
   },
   "permissions": [
-    "scripting"
+    "scripting",
+    "history"
   ]
 }

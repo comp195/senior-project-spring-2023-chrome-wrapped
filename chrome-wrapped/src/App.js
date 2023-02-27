@@ -25,7 +25,6 @@ const Header = () => {
     <h1 style={headerStyle}>Chrome Wrapped(TM)</h1>
   )
 }
-
 const TabRow = ({currentTab, setCurrentTab}) => {
   const tabRowStyle = {
     backgroundColor: "coral",
@@ -72,4 +71,3 @@ const Tab = ({name, handler}) => {
 }
 
 
-export default App;
