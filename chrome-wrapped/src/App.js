@@ -41,7 +41,7 @@ const TabRow = ({currentTab, setCurrentTab}) => {
     if (!tab) {
       return
     }
-    setCurrentTab(tab)
+    setCurrentTab(tab)    
   }
 
   return (
