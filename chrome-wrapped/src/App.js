@@ -21,7 +21,6 @@ const Header = () => {
     width: "50%",
     padding: 10,
     textAlign: "center",
-    backgroundColor: "lightBlue"
   }
   return (
     <h1 style={headerStyle}>Chrome Wrapped(TM)</h1>
@@ -32,10 +31,10 @@ const TabRow = ({currentTab, setCurrentTab}) => {
   const tabRowStyle = {
     backgroundColor: "coral",
     margin: "auto",
-    padding: 3,
+    padding: "3%",
     maxWidth: "90%",
     display: "flex",
-    flexDirection: "row"
+    flexDirection: "row",
   }
 
   const switchTab = tab => {
@@ -46,30 +45,13 @@ const TabRow = ({currentTab, setCurrentTab}) => {
   }
 
   return (
-    <div style={tabRowStyle}>
-      <Tab name="Overview" handler={() => switchTab('Overview')}/>
-      <Tab name="Detailed View" handler={() => switchTab('Detailed')}/>
-      <Tab name="Browsing Trends" handler={() => switchTab('Trends')}/>
-      <Tab name="Options" handler={() => switchTab('Options')}/>
+    <div style={tabRowStyle} class="tab">
+      <button name="Overview" onClick={() => switchTab('Overview')}>Overview</button>
+      <button name="Detailed View" onClick={() => switchTab('Details')}>Details</button>
+      <button name="Browsing Trends" onClick={() => switchTab('Trends')}>Trends</button>
+      <button name="Options" onClick={() => switchTab('Options')}>Options</button>
     </div>
-  )
-}
-
-const Tab = ({name, handler}) => {
-  const tabStyle = {
-    marginRight: 8,
-    paddingLeft: 3,
-    paddingRight: 6,
-    backgroundColor: "pink",
-    borderRadius: 4
-  }
-  return (
-    <button 
-    style={tabStyle} 
-    onClick={handler} 
-    >
-      {name}
-    </button>
+  
   )
 }
 

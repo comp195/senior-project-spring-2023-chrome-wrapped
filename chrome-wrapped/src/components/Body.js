@@ -36,7 +36,7 @@ const Body = ({ currentTab }) => {
             //renderStyle = {...defaultRenderStyle, backgroundColor: "blue"}
             //renderText = 'Overview'
             break
-        case'Detailed':
+        case'Details':
             renderStyle = {...defaultRenderStyle, backgroundColor: "green"}
             renderText = 'Detailed View'
             break
