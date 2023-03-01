@@ -5,5 +5,5 @@ import App from './App'
 import history from './history'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
-history.runScript()
+// console.log(history.topVisits(1))
 root.render(<App />)
