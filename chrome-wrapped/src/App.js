@@ -18,20 +18,20 @@ const App = () => {
 const Header = () => {
   const headerStyle = {
     margin: "auto",
-    width: "50%",
+    width: "100%",
     padding: 10,
     textAlign: "center",
   }
   return (
-    <h1 style={headerStyle}>Chrome Wrapped(TM)</h1>
+    <h1 style={headerStyle}>Chrome Wrapped (TM)</h1>
   )
 }
 
 const TabRow = ({currentTab, setCurrentTab}) => {
   const tabRowStyle = {
-    backgroundColor: "coral",
+    backgroundColor: "blue",
     margin: "auto",
-    padding: "3%",
+    padding: "1%",
     maxWidth: "90%",
     display: "flex",
     flexDirection: "row",
@@ -41,11 +41,12 @@ const TabRow = ({currentTab, setCurrentTab}) => {
     if (!tab) {
       return
     }
-    setCurrentTab(tab)    
+    setCurrentTab(tab)
+    }
   }
 
   return (
-    <div style={tabRowStyle} class="tab">
+    <div style={tabRowStyle} class="tab" id="myDIV">
       <button name="Overview" onClick={() => switchTab('Overview')}>Overview</button>
       <button name="Detailed View" onClick={() => switchTab('Details')}>Details</button>
       <button name="Browsing Trends" onClick={() => switchTab('Trends')}>Trends</button>
@@ -53,7 +54,5 @@ const TabRow = ({currentTab, setCurrentTab}) => {
     </div>
   
   )
-}
-
 
 export default App;
