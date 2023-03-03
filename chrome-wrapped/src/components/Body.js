@@ -1,4 +1,5 @@
-import Ring from '../charts/Ring'
+import RingChart from '../charts/Ring'
+import BubbleChart from '../charts/Bubble'
 
 const Body = ({ currentTab }) => {
     let renderText = 'text'
@@ -13,7 +14,7 @@ const Body = ({ currentTab }) => {
     console.log(currentTab)
     switch (currentTab) {
         case'Overview':
-        const data = {
+        const ringData = {
                 labels: [
                   'Red',
                   'Blue',
@@ -31,7 +32,10 @@ const Body = ({ currentTab }) => {
                 }]
               }
             return (
-                <Ring data={data}/>
+                <div>
+                    <RingChart data={ringData}/>
+                    <BubbleChart />
+                </div>
             )
             //renderStyle = {...defaultRenderStyle, backgroundColor: "blue"}
             //renderText = 'Overview'
