@@ -43,7 +43,7 @@ const TabRow = ({currentTab, setCurrentTab}) => {
     }
     setCurrentTab(tab)
     }
-  }
+  
 
   return (
     <div style={tabRowStyle} class="tab" id="myDIV">
@@ -54,5 +54,5 @@ const TabRow = ({currentTab, setCurrentTab}) => {
     </div>
   
   )
-
+}
 export default App;
