@@ -38,9 +38,7 @@ const Body = ({ currentTab }) => {
             //renderText = 'Overview'
             break
         case'Details':
-            history.topVisits(1).then((data)=>{
-                console.log(data);
-            });
+            console.log(history.topVisits(5));
             renderStyle = {...defaultRenderStyle, backgroundColor: "green"}
             renderText = 'Detailed View'
             break

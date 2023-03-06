@@ -24,6 +24,18 @@ const runScript = () => {
         const compareVisits = (historyItem1, historyItem2) => {
             return(historyItem2.visitCount - historyItem1.visitCount);
         }
+        return new Promise((resolve, reject) => {
+            try {
+                chrome.history.search({text: '', maxResults: 0, startTime: 0}, (data) =>{
+                    data.sort(compareVisits);
+                    resolve(data.slice(0, topNum));
+                })
+            } catch(ex){
+                reject(ex);
+            }
+
+        })
+        
         // let numberToReturn = 1;
         // chrome.history.search({
         //     text: '',
@@ -42,10 +54,6 @@ const runScript = () => {
         // }).then((granted)=>{
             
         // })      
-            return chrome.history.search({
-                text: '',
-                maxResults: 0,
-                startTime: 0
-                })
+
 }
 export default {runScript, topVisits}
