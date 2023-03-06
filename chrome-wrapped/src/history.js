@@ -20,24 +20,32 @@ const runScript = () => {
         }
     )
 }
-const topVisits = (topNum) => {
-    const compareVisits = (historyItem1, historyItem2) => {
-        return(historyItem2.visitCount - historyItem1.visitCount);
-    }
-    chrome.history.search({
-        text: '',
-        maxResults: 0,
-        startTime: 0
-    },
-        (data) => {
-            data.sort(compareVisits);
-            // data.forEach(element => {
-            //     console.log(element.title, element.visitCount)
-            // });
-            
-                // console.log(data.slice(0, topNum))
-            return(data.slice(0, topNum));
+    const topVisits = (topNum) => {
+        const compareVisits = (historyItem1, historyItem2) => {
+            return(historyItem2.visitCount - historyItem1.visitCount);
         }
-    )
+        // let numberToReturn = 1;
+        // chrome.history.search({
+        //     text: '',
+        //     maxResults: 0,
+        //     startTime: 0
+        // },
+        //     (data) => {
+        //         data.sort(compareVisits);
+        //         // data.forEach(element => {
+        //         //     console.log(element.title, element.visitCount)
+        //         // });
+                
+        //             // console.log(data.slice(0, topNum))
+        //         numberToReturn = 5;
+            
+        // }).then((granted)=>{
+            
+        // })      
+            return chrome.history.search({
+                text: '',
+                maxResults: 0,
+                startTime: 0
+                })
 }
 export default {runScript, topVisits}

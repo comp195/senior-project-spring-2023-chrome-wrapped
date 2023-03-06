@@ -1,4 +1,4 @@
-
+import history from '../history'
 const Body = ({ currentTab }) => {
     let renderText = 'text'
     const defaultRenderStyle = {
@@ -16,6 +16,9 @@ const Body = ({ currentTab }) => {
             renderText = 'Overview'
             break
         case'Detailed':
+            history.topVisits(1).then((data)=>{
+                console.log(data);
+            });
             renderStyle = {...defaultRenderStyle, backgroundColor: "green"}
             renderText = 'Detailed View'
             break
