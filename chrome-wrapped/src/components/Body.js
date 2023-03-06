@@ -1,9 +1,6 @@
-<<<<<<< HEAD
-import history from '../history'
-=======
 import Ring from '../charts/Ring'
+import history from '../history'
 
->>>>>>> main
 const Body = ({ currentTab }) => {
     let renderText = 'text'
     const defaultRenderStyle = {
@@ -40,14 +37,10 @@ const Body = ({ currentTab }) => {
             //renderStyle = {...defaultRenderStyle, backgroundColor: "blue"}
             //renderText = 'Overview'
             break
-<<<<<<< HEAD
-        case'Detailed':
+        case'Details':
             history.topVisits(1).then((data)=>{
                 console.log(data);
             });
-=======
-        case'Details':
->>>>>>> main
             renderStyle = {...defaultRenderStyle, backgroundColor: "green"}
             renderText = 'Detailed View'
             break
