@@ -26,7 +26,6 @@ const Header = () => {
     <h1 style={headerStyle}>Chrome Wrapped (TM)</h1>
   )
 }
-
 const TabRow = ({currentTab, setCurrentTab}) => {
   const tabRowStyle = {
     backgroundColor: "blue",
@@ -55,4 +54,23 @@ const TabRow = ({currentTab, setCurrentTab}) => {
   
   )
 }
-export default App;
+
+const Tab = ({name, handler}) => {
+  const tabStyle = {
+    marginRight: 8,
+    paddingLeft: 3,
+    paddingRight: 6,
+    backgroundColor: "pink",
+    borderRadius: 4
+  }
+  return (
+    <button 
+    style={tabStyle} 
+    onClick={handler} 
+    >
+      {name}
+    </button>
+  )
+}
+export default App
+

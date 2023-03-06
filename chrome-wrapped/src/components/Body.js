@@ -1,4 +1,5 @@
 import Ring from '../charts/Ring'
+import history from '../history'
 
 const Body = ({ currentTab }) => {
     let renderText = 'text'
@@ -37,6 +38,9 @@ const Body = ({ currentTab }) => {
             //renderText = 'Overview'
             break
         case'Details':
+            history.topVisits(1).then((data)=>{
+                console.log(data);
+            });
             renderStyle = {...defaultRenderStyle, backgroundColor: "green"}
             renderText = 'Detailed View'
             break
