@@ -28,12 +28,12 @@ const Header = () => {
 }
 const TabRow = ({currentTab, setCurrentTab}) => {
   const tabRowStyle = {
-    backgroundColor: "blue",
+    backgroundColor: "inherit",
     margin: "auto",
     padding: "1%",
     maxWidth: "90%",
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "row"
   }
 
   const switchTab = tab => {
@@ -41,15 +41,16 @@ const TabRow = ({currentTab, setCurrentTab}) => {
       return
     }
     setCurrentTab(tab)
-    }
+  }
   
+  const tab = currentTab
 
   return (
-    <div style={tabRowStyle} class="tab" id="myDIV">
-      <button name="Overview" onClick={() => switchTab('Overview')}>Overview</button>
-      <button name="Detailed View" onClick={() => switchTab('Details')}>Details</button>
-      <button name="Browsing Trends" onClick={() => switchTab('Trends')}>Trends</button>
-      <button name="Options" onClick={() => switchTab('Options')}>Options</button>
+    <div style={tabRowStyle} className="tab" id="myDIV">
+      <button name="Overview" class={tab==='Overview' ? 'selected' : ''} onClick={() => switchTab('Overview')}>Overview</button>
+      <button name="Details" class={tab==='Details' ? 'selected' : ''} onClick={() => switchTab('Details')}>Details</button>
+      <button name="Browsing Trends" class={tab==='Trends' ? 'selected' : ''} onClick={() => switchTab('Trends')}>Trends</button>
+      <button name="Options" class={tab==='Options' ? 'selected' : ''} onClick={() => switchTab('Options')}>Options</button>
     </div>
   
   )
@@ -60,9 +61,9 @@ const Tab = ({name, handler}) => {
     marginRight: 8,
     paddingLeft: 3,
     paddingRight: 6,
-    backgroundColor: "pink",
-    borderRadius: 4
+    backgroundColor: "pink"
   }
+  
   return (
     <button 
     style={tabStyle} 
@@ -72,5 +73,6 @@ const Tab = ({name, handler}) => {
     </button>
   )
 }
+
 export default App
 
