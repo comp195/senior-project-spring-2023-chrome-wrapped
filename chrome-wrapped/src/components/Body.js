@@ -1,4 +1,4 @@
-import Ring from '../charts/Ring'
+import RingChart from '../charts/Ring'
 import history from '../history'
 
 const Body = ({ currentTab }) => {
@@ -16,7 +16,7 @@ const Body = ({ currentTab }) => {
         case'Overview':
             return (
                 <div>
-                    <RingChart data={ringData}/>
+                    <RingChart />
                 </div>
             )
             break

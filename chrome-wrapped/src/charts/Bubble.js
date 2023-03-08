@@ -3,29 +3,42 @@ import { Bar } from "react-chartjs-2"
 
 const BubbleChart = () => {
 const options = {
-    indexAxis: 'y',
-    scales: {
-        y: {
-          stacked: true
-        },
-        x: {
-          reverse: true,
-          max: 110,
-          min: 93,
-        }
-      },
-      interaction: {
-        mode: 'x',
-      }
+  plugins: {
+    title: {
+      display: true,
+      text: 'Chart.js Bar Chart - Stacked'
+    },
+  },
+  responsive: true,
+  scales: {
+    x: {
+      stacked: true,
+    },
+    y: {
+      stacked: true
+    }
+  }
 }
-const input = [93.1, 93.4, 93.7, 95.7, 98.2, 103, 105.3, 106.1, 108.2]
-const datasets = input.map(n => ({
-    data: [[n-0.03, n+0.03]],
-    backgroundColor: 'rgb(255, 99, 132)'
-}))
+const labels = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
 const data = {
-    labels: [''],
-    datasets: datasets
+    labels: labels,
+    datasets: [
+      {
+        label: 'Dataset 1',
+        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        backgroundColor: 'rgb(255, 99, 99)',
+      },
+      {
+        label: 'Dataset 2',
+        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        backgroundColor: 'rgb(99, 99, 255)',
+      },
+      {
+        label: 'Dataset 3',
+        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        backgroundColor: 'rgb(99, 255, 99)',
+      },
+    ]
 }
 return <Bar data={data} options={options}/>
 }
