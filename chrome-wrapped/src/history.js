@@ -28,14 +28,24 @@ const runScript = () => {
             try {
                 chrome.history.search({text: '', maxResults: 0, startTime: 0}, (data) =>{
                     data.sort(compareVisits);
-                    resolve(data.slice(0, topNum));
+                    if(data.length >= topNum){
+                        resolve(data.slice(0, topNum));
+                    } else{
+                        resolve(data.slice(0, data.length));
+                    }
                 })
             } catch(ex){
                 reject(ex);
             }
 
         })
-        
+    }
+    const compiledTimes = (topNum, range) =>{
+        let data = topVisits(topNum);
+        return new Promise((resolve, reject) => {
+            
+        })
+    }
         // let numberToReturn = 1;
         // chrome.history.search({
         //     text: '',
@@ -53,7 +63,5 @@ const runScript = () => {
             
         // }).then((granted)=>{
             
-        // })      
-
-}
+        // }) 
 export default {runScript, topVisits}
