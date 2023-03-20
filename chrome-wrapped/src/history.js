@@ -20,13 +20,21 @@ const runScript = () => {
         }
     )
 }
-    const topVisits = (topNum) => {
+//Returns a promise to an array the top {topNum} items within the given range. Defaults to top 5 visits of the full history
+    const topVisits = (topNum = 5, dateStart = new Date(0), dateEnd = new Date()) => {
+        //Comparison functions for sorting
         const compareVisits = (historyItem1, historyItem2) => {
             return(historyItem2.visitCount - historyItem1.visitCount);
         }
+        const compareDate = (historyItem1, historyItem2) => {
+            return(historyItem2.lastVisitTime - historyItem1.lastVisitTime);
+        }
+
         return new Promise((resolve, reject) => {
             try {
-                chrome.history.search({text: '', maxResults: 0, startTime: 0}, (data) =>{
+                //https://developer.chrome.com/docs/extensions/reference/history/ 
+                chrome.history.search({text: '', maxResults: 0, startTime: dateStart.getTime(), endTime: dateEnd.getTime()}, (data) =>{
+                    //Find top 5 visits
                     data.sort(compareVisits);
                     if(data.length >= topNum){
                         resolve(data.slice(0, topNum));
@@ -40,12 +48,21 @@ const runScript = () => {
 
         })
     }
-    const compiledTimes = (topNum, range) =>{
-        let data = topVisits(topNum);
-        return new Promise((resolve, reject) => {
-            
-        })
-    }
+    // const compiledTimes = (topNum, range) =>{
+    //     let data = topVisits(topNum);
+    //     return new Promise((resolve, reject) => {
+    //         try{
+                
+    //             chrome.history.getVisits({url: element.url}, 
+    //                     (output) => {
+    //                         console.log(output);
+    //                     })
+    //         }
+    //         catch(ex){
+    //             reject(ex);
+    //         }
+    //     })
+    // }
         // let numberToReturn = 1;
         // chrome.history.search({
         //     text: '',
