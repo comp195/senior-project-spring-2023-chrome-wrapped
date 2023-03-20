@@ -7,12 +7,12 @@ const RingChart = ({NUM_SITES, TIMEFRAME}) => {
     const [chromeData, setChromeData] = useState([])
 
     useEffect(() => {
-        history.topVisits(NUM_SITES)
+        history.topVisits(NUM_SITES, TIMEFRAME)
             .then(response => {
                 setChromeData(response)
             })
-    }, [])
-    
+    }, [NUM_SITES, TIMEFRAME])
+    console.log(TIMEFRAME)
     if (!chromeData || chromeData.length < 1) {
         console.log('Chrome data not loaded, returning null')
         return (<div></div>)
