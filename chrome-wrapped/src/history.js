@@ -21,7 +21,7 @@ const runScript = () => {
     )
 }
 //Returns a promise to an array the top {topNum} items within the given range. Defaults to top 5 visits of the full history
-    const topVisits = (topNum = 5, dateStart = new Date(0), dateEnd = new Date()) => {
+    const topVisits = (topNum = 5, days = -1) => {
         //Comparison functions for sorting
         const compareVisits = (historyItem1, historyItem2) => {
             return(historyItem2.visitCount - historyItem1.visitCount);
@@ -32,8 +32,16 @@ const runScript = () => {
 
         return new Promise((resolve, reject) => {
             try {
-                //https://developer.chrome.com/docs/extensions/reference/history/ 
-                chrome.history.search({text: '', maxResults: 0, startTime: dateStart.getTime(), endTime: dateEnd.getTime()}, (data) =>{
+                //https://developer.chrome.com/docs/extensions/reference/history/
+                let start = new Date()
+                
+                if(days < 0){
+                    start.setTime(0)
+                }else{
+                    start.setDate(start.getDate() - days)
+                    
+                }
+                chrome.history.search({text: '', maxResults: 0, startTime:start.getTime()}, (data) =>{
                     //Find top 5 visits
                     data.sort(compareVisits);
                     if(data.length >= topNum){
@@ -46,6 +54,23 @@ const runScript = () => {
                 reject(ex);
             }
 
+        })
+    }
+    const getVisitsToDomain = (url) =>{
+        return new Promise((resolve, reject) => {
+            try {
+                //https://developer.chrome.com/docs/extensions/reference/history/ 
+                chrome.history.search({text: '', maxResults: 0, startTime: 0}, (data) =>{
+                    let checkDomain = (new URL(url)).hostname
+                    for(let i = 0; i < data.length; i++){
+                        if((new URL(data[0].URL)).hostname == checkDomain){
+
+                        }
+                    }
+                })
+            } catch(ex){
+                reject(ex);
+            }
         })
     }
     // const compiledTimes = (topNum, range) =>{

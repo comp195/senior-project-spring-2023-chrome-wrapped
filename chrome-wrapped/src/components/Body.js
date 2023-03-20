@@ -21,7 +21,6 @@ const Body = ({ currentTab }) => {
             )
             break
         case'Details':
-            console.log(history.topVisits(5));
             renderStyle = {...defaultRenderStyle, backgroundColor: "green"}
             renderText = 'Detailed View'
             break
