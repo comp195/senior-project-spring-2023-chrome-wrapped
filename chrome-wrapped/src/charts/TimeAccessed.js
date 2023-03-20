@@ -7,10 +7,10 @@ const RingChart = ({NUM_SITES, TIMEFRAME}) => {
     const [chromeData, setChromeData] = useState([])
 
     useEffect(() => {
-        history.topVisits(NUM_SITES)
-            .then(response => {
-                setChromeData(response)
-            })
+        // history.topVisits(NUM_SITES)
+        //     .then(response => {
+        //         setChromeData(response)
+        //     })
     }, [])
     
     if (!chromeData || chromeData.length < 1) {

@@ -1,5 +1,5 @@
-import RingChart from '../charts/Ring'
-import history from '../history'
+import Overview from './Overview'
+import Details from './Details'
 
 const Body = ({ currentTab }) => {
     let renderText = 'text'
@@ -14,16 +14,10 @@ const Body = ({ currentTab }) => {
     console.log(currentTab)
     switch (currentTab) {
         case'Overview':
-            return (
-                <div>
-                    <RingChart />
-                </div>
-            )
+            return (<Overview/>)
             break
         case'Details':
-            console.log(history.topVisits(5));
-            renderStyle = {...defaultRenderStyle, backgroundColor: "green"}
-            renderText = 'Detailed View'
+            return (<Details/>)
             break
         case'Trends':
             renderStyle = {...defaultRenderStyle, backgroundColor: "purple"}
