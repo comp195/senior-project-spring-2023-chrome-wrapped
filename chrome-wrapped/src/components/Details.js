@@ -3,9 +3,20 @@ import RingChart from '../charts/TimeAccessed'
 
 const Overview = () => {
     const [day, setDay] = useState('SUN')
+    
+    const tabRowStyle = {
+        backgroundColor: "inherit",
+        margin: "auto",
+        padding: "1%",
+        maxWidth: "90%",
+        display: "flex",
+        flexDirection: "row"
+    }
+    
     return (
         <div>
-            <div className='tabDetailedDays'>
+            <h3><center>Popular Times Accessed</center></h3>
+            <div style={tabRowStyle} className='tabDetailedDays'>
                 <button onClick={() => setDay('SUN')}>SUN</button>
                 <button onClick={() => setDay('MON')}>MON</button>
                 <button onClick={() => setDay('TUE')}>TUE</button>
