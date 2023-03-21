@@ -30,7 +30,7 @@ const RingChart = ({NUM_SITES, TIMEFRAME}) => {
 
     const visitCounts = chromeData.map(h => h.visitCount)
     const datasets = [{
-        label: 'Top 5 Site Visits',
+        label: 'Visit Count',
         data: visitCounts,
         backgroundColor: [
             'rgb(42, 26, 216)',

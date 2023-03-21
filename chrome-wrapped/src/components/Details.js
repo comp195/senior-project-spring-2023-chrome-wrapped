@@ -5,7 +5,7 @@ const Overview = () => {
     const [day, setDay] = useState('SUN')
     return (
         <div>
-            <div>
+            <div className='tabDetailedDays'>
                 <button onClick={() => setDay('SUN')}>SUN</button>
                 <button onClick={() => setDay('MON')}>MON</button>
                 <button onClick={() => setDay('TUE')}>TUE</button>
