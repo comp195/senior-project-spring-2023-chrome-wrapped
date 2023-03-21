@@ -38,3 +38,57 @@ body {
   background-color: #3e42a7;
 }
 
+/* Style the Overview overview time buttons inside the tab */
+.tabTime button {
+  width: 30px;
+  border: none;
+  outline: none;
+  background-color: #192a66;
+  color: #ffffff; 
+  float: center;
+  cursor: pointer;
+  font-size: small;
+  margin-right: 5px;
+  font-family: 'Montserrat';
+  font-weight: "bold";
+  border-radius: 5px;
+
+}
+
+/* Change background color of overview time option buttons on hover */
+.tabTime button:hover {
+  background-color: #3e42a7;
+}
+
+/* Create an active/current overview time option tablink class */
+.tabTime button.selected {
+  background-color: #3e42a7;
+}
+
+/* Style the Overview overview site buttons inside the tab */
+.tabSites button {
+  width: 30px;
+  border: none;
+  outline: none;
+  background-color: #192a66;
+  color: #ffffff; 
+  float: center;
+  cursor: pointer;
+  font-size: small;
+  margin-right: 5px;
+  font-family: 'Montserrat';
+  font-weight: "bold";
+  border-radius: 5px;
+
+}
+
+/* Change background color of overview site buttons on hover */
+.tabSites button:hover {
+  background-color: #3e42a7;
+}
+
+/* Create an active/current overview site option tablink class */
+.tabSites button.selected {
+  background-color: #3e42a7;
+}
+

@@ -18,7 +18,16 @@ const RingChart = ({NUM_SITES, TIMEFRAME}) => {
         return (<div></div>)
     }
 
-    const labels = chromeData.map(h =>  h.title)
+
+    const labels = chromeData.map(h => new URL(h.url).hostname)
+
+    // const newData = []
+    // chromeData.forEach((h, index) => {
+    //     if(chromeData.indexOf(h) === index){
+
+    //     }
+    // })
+
     const visitCounts = chromeData.map(h => h.visitCount)
     const datasets = [{
         label: 'Top 5 Site Visits',
