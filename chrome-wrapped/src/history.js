@@ -26,10 +26,6 @@ const runScript = () => {
         const compareVisits = (historyItem1, historyItem2) => {
             return(historyItem2.visitCount - historyItem1.visitCount);
         }
-        const compareDate = (historyItem1, historyItem2) => {
-            return(historyItem2.lastVisitTime - historyItem1.lastVisitTime);
-        }
-
         return new Promise((resolve, reject) => {
             try {
                 //https://developer.chrome.com/docs/extensions/reference/history/
@@ -39,7 +35,6 @@ const runScript = () => {
                     start.setTime(0)
                 }else{
                     start.setDate(start.getDate() - days)
-                    
                 }
                 chrome.history.search({text: '', maxResults: 0, startTime:start.getTime()}, (data) =>{
                     //Find top 5 visits
@@ -56,54 +51,68 @@ const runScript = () => {
 
         })
     }
-    const getVisitsToDomain = (url) =>{
+    //Get list of all domains, combine visit counts for multiple visits to domains
+    const getDomains = () => {
         return new Promise((resolve, reject) => {
-            try {
-                //https://developer.chrome.com/docs/extensions/reference/history/ 
+            try {             
                 chrome.history.search({text: '', maxResults: 0, startTime: 0}, (data) =>{
-                    let checkDomain = (new URL(url)).hostname
-                    for(let i = 0; i < data.length; i++){
-                        if((new URL(data[0].URL)).hostname == checkDomain){
-
+                    let domainList = [data[0]]
+                    domainList[0].url = ((new URL(data[0].url)).hostname)
+                    //Sort by URL
+                    data.sort((historyItem1, historyItem2) => {
+                        return(historyItem2.url - historyItem1.url);
+                    });
+                    // console.log("Data List", data)
+                    //Aggregate by domain
+                    for(let i = 1; i < data.length; i++){
+                        //If domain already in list
+                        //console.log(data[i].url)
+                        //if((new URL(data[i].url)).hostname === (domainList[domainList.length-1].url)){
+                        try{
+                            domainList.find(o => o.url === (new URL(data[i].url)).hostname).visitCount += data[i].visitCount
+                        }
+                        catch{
+                            //Note: lastVisit and title will be horribly incorrect but it's okay, we just need visitCount
+                            //console.log((new URL(data[i].url)).hostname, " does not equal ", domainList[domainList.length-1].url)
+                            domainList.push(data[i])
+                             domainList[domainList.length-1].url = ((new URL(data[i].url)).hostname)
                         }
                     }
+                    // data.sort((historyItem1, historyItem2) => {
+                    //     return(historyItem2.visitCount - historyItem1.visitCount);
+                    // });
+                    domainList.sort((historyItem1, historyItem2) => {
+                        return(historyItem2.visitCount - historyItem1.visitCount);
+                    });
+                   console.log("Domain List", domainList)
+                    //console.log("Data List", data)
+                    resolve(domainList)
                 })
             } catch(ex){
                 reject(ex);
             }
         })
     }
-    // const compiledTimes = (topNum, range) =>{
-    //     let data = topVisits(topNum);
-    //     return new Promise((resolve, reject) => {
-    //         try{
-                
-    //             chrome.history.getVisits({url: element.url}, 
-    //                     (output) => {
-    //                         console.log(output);
-    //                     })
-    //         }
-    //         catch(ex){
-    //             reject(ex);
-    //         }
-    //     })
-    // }
-        // let numberToReturn = 1;
-        // chrome.history.search({
-        //     text: '',
-        //     maxResults: 0,
-        //     startTime: 0
-        // },
-        //     (data) => {
-        //         data.sort(compareVisits);
-        //         // data.forEach(element => {
-        //         //     console.log(element.title, element.visitCount)
-        //         // });
-                
-        //             // console.log(data.slice(0, topNum))
-        //         numberToReturn = 5;
-            
-        // }).then((granted)=>{
-            
-        // }) 
-export default {runScript, topVisits}
+    //Returns a promise to a list of visits to a specific url 
+    const getVisitsToDomain = (url = "https://developer.mozilla.org") =>{
+        return new Promise((resolve, reject) => {
+            try {
+                //https://developer.chrome.com/docs/extensions/reference/history/ 
+                chrome.history.search({text: '', maxResults: 0, startTime: 0}, (data) =>{
+                    let checkDomain = (new URL(url)).hostname
+                    let domainList = []
+                    for(let i = 0; i < data.length; i++){
+                        if((new URL(data[i].url)).hostname == checkDomain){
+                            domainList.append(data[i])
+                        }
+                    }
+                    console.log(domainList)
+                    resolve(domainList)
+                })
+            } catch(ex){
+                reject(ex);
+            }
+        })
+    }
+
+export default {topVisits, getVisitsToDomain, getDomains}
