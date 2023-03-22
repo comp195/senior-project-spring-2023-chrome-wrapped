@@ -7,8 +7,8 @@ const Overview = () => {
     const [currentTabTime, setCurrentTabTime] = useState('1W')
     const [currentTabSites, setCurrentTabSites] = useState('5')
 
-    const tabSites = currentTabSites
     const tabTime = currentTabTime
+    const tabSites = currentTabSites
 
     const switchTabTime = tab => {
         if (!tab) {

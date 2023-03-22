@@ -1,5 +1,6 @@
 import Overview from './Overview'
 import Details from './Details'
+import Trends from './Trends'
 
 const Body = ({ currentTab }) => {
     let renderText = 'text'
@@ -20,8 +21,7 @@ const Body = ({ currentTab }) => {
             return (<Details/>)
             break
         case'Trends':
-            renderStyle = {...defaultRenderStyle, backgroundColor: "purple"}
-            renderText = 'Trends'
+            return (<Trends/>)
             break
         case'Options':
             renderStyle = {...defaultRenderStyle, backgroundColor: "yellow"}

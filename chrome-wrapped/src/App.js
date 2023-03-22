@@ -52,27 +52,26 @@ const TabRow = ({currentTab, setCurrentTab}) => {
       <button name="Browsing Trends" class={tab==='Trends' ? 'selected' : ''} onClick={() => switchTab('Trends')}>Trends</button>
       <button name="Options" class={tab==='Options' ? 'selected' : ''} onClick={() => switchTab('Options')}>Options</button>
     </div>
-  
   )
 }
 
-const Tab = ({name, handler}) => {
-  const tabStyle = {
-    marginRight: 8,
-    paddingLeft: 3,
-    paddingRight: 6,
-    backgroundColor: "pink"
-  }
+// const Tab = ({name, handler}) => {
+//   const tabStyle = {
+//     marginRight: 8,
+//     paddingLeft: 3,
+//     paddingRight: 6,
+//     backgroundColor: "pink"
+//   }
   
-  return (
-    <button 
-    style={tabStyle} 
-    onClick={handler} 
-    >
-      {name}
-    </button>
-  )
-}
+//   return (
+//     <button 
+//     style={tabStyle} 
+//     onClick={handler} 
+//     >
+//       {name}
+//     </button>
+//   )
+// }
 
 export default App
 
