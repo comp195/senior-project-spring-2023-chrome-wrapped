@@ -28,15 +28,7 @@ const runScript = () => {
         }
         return new Promise((resolve, reject) => {
             try {
-                //https://developer.chrome.com/docs/extensions/reference/history/
-                let start = new Date()
-                
-                if(days < 0){
-                    start.setTime(0)
-                }else{
-                    start.setDate(start.getDate() - days)
-                }
-                chrome.history.search({text: '', maxResults: 0, startTime:start.getTime()}, (data) =>{
+                getDomains(days).then(data => {
                     //Find top 5 visits
                     data.sort(compareVisits);
                     if(data.length >= topNum){
@@ -52,10 +44,16 @@ const runScript = () => {
         })
     }
     //Get list of all domains, combine visit counts for multiple visits to domains
-    const getDomains = () => {
+    const getDomains = (days = -1) => {
         return new Promise((resolve, reject) => {
             try {             
-                chrome.history.search({text: '', maxResults: 0, startTime: 0}, (data) =>{
+                let start = new Date()
+                if(days < 0){
+                    start.setTime(0)
+                }else{
+                    start.setDate(start.getDate() - days)
+                }
+                chrome.history.search({text: '', maxResults: 0, startTime:start.getTime()}, (data) =>{
                     let domainList = [data[0]]
                     domainList[0].url = ((new URL(data[0].url)).hostname)
                     //Sort by URL
@@ -93,26 +91,5 @@ const runScript = () => {
             }
         })
     }
-    //Returns a promise to a list of visits to a specific url 
-    const getVisitsToDomain = (url = "https://developer.mozilla.org") =>{
-        return new Promise((resolve, reject) => {
-            try {
-                //https://developer.chrome.com/docs/extensions/reference/history/ 
-                chrome.history.search({text: '', maxResults: 0, startTime: 0}, (data) =>{
-                    let checkDomain = (new URL(url)).hostname
-                    let domainList = []
-                    for(let i = 0; i < data.length; i++){
-                        if((new URL(data[i].url)).hostname == checkDomain){
-                            domainList.append(data[i])
-                        }
-                    }
-                    console.log(domainList)
-                    resolve(domainList)
-                })
-            } catch(ex){
-                reject(ex);
-            }
-        })
-    }
 
-export default {topVisits, getVisitsToDomain, getDomains}
+export default {topVisits, getDomains}
