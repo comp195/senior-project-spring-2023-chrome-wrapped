@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import history from '../history'
 
 const Details = (props) => {
 
@@ -13,15 +14,20 @@ const Details = (props) => {
     }
 
     const [filter, setFilter] = useState(defaultSearch)
+    const [visits, setVisits] = useState(0)
 
     useEffect(() => {
         //Get the data from the API
+        history.searchAggregate(filter)
+            .then(response => {
+                setVisits(response)
+            })
     }, [filter])
 
     return (
         <div>
             <SearchBox filter={filter} setFilter={setFilter}/>
-            <h3 style={textStyle}>Visit Count: </h3>
+            <h3 style={textStyle}>Visit Count: {visits}</h3>
             <h3 style={textStyle}>Last Time Visited: </h3>
             <h3 style={textStyle}>Most Recent URLs: </h3>
         </div>
