@@ -20,6 +20,26 @@ const runScript = () => {
         }
     )
 }
+//Given a substring, returns int of number of total visits of all time to sites containing that substring
+const searchAggregate = (searchQuery) => {
+    return new Promise((resolve, reject) => {
+        try{
+            chrome.history.search({text: searchQuery, maxResults: 0, startTime:-1}, (data) =>{
+                let totalVisitCount = 0
+                data.forEach(entry=>{totalVisitCount += entry.visitCount})
+                resolve(totalVisitCount)
+            })
+        }catch(ex){
+            reject(ex)
+        }
+    })
+}
+const searchRecent = (searchQuery, days) => {
+
+}
+const searchTopVisits = (searchQuery, topNum) => {
+
+}
 //Returns a promise to an array the top {topNum} items within the given range. Defaults to top 5 visits of the full history
     const topVisits = (topNum = 5, days = -1) => {
         //Comparison functions for sorting
@@ -46,7 +66,8 @@ const runScript = () => {
     //Get list of all domains, combine visit counts for multiple visits to domains
     const getDomains = (days = -1) => {
         return new Promise((resolve, reject) => {
-            try {             
+            try {           
+                //Specifying Date range  
                 let start = new Date()
                 if(days < 0){
                     start.setTime(0)
@@ -92,4 +113,4 @@ const runScript = () => {
         })
     }
 
-export default {topVisits, getDomains}
+export default {topVisits, getDomains, searchAggregate}
