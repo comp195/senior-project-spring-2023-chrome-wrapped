@@ -19,7 +19,7 @@ const RingChart = ({NUM_SITES, TIMEFRAME}) => {
     }
 
 
-    const labels = chromeData.map(h => new URL(h.url).hostname)
+    const labels = chromeData.map(h => h.url)
 
     // const newData = []
     // chromeData.forEach((h, index) => {
