@@ -5,7 +5,6 @@ import history from '../history'
 
 const RingChart = ({NUM_SITES, TIMEFRAME}) => {
     const [chromeData, setChromeData] = useState([])
-
     useEffect(() => {
         history.topVisits(NUM_SITES, TIMEFRAME)
             .then(response => {
