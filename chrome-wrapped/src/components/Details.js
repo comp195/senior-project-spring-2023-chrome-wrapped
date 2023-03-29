@@ -15,12 +15,24 @@ const Details = (props) => {
 
     const [filter, setFilter] = useState(defaultSearch)
     const [visits, setVisits] = useState(0)
+    const [recentVisits, setRecentVisits] = useState([])
 
     useEffect(() => {
         //Get the data from the API
         history.searchAggregate(filter)
             .then(response => {
                 setVisits(response)
+            })
+        history.searchRecent(filter)
+            .then(response => {
+                
+                // const rawDate = new Date(response.lastVisitTime)
+                // const date = rawDate.toLocaleString()
+                setRecentVisits(response.map(v => {
+                    return (
+                        {...v, lastVisitTime: new Date(v.lastVisitTime).toLocaleString()}
+                    )
+                }))
             })
     }, [filter])
 
@@ -30,6 +42,7 @@ const Details = (props) => {
             <h3 style={textStyle}>Visit Count: {visits}</h3>
             <h3 style={textStyle}>Last Time Visited: </h3>
             <h3 style={textStyle}>Most Recent URLs: </h3>
+            <RecentVisitList recentVisits={recentVisits} textStyle={textStyle}/>
         </div>
     )
 }
@@ -40,6 +53,28 @@ const SearchBox = ({filter, setFilter}) => {
         setFilter(event.target.value)
     }
     return <p>URL contains: <input value={filter} onChange={handleFilterChange}/></p>
+}
+
+const RecentVisitList = ({recentVisits, textStyle}) => {
+    if (recentVisits.length === 0 || !recentVisits) return null
+    console.log(recentVisits)
+    return (
+        <p>
+            {recentVisits.map(v => {
+                return (
+                    <>
+                        <image src={`https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${v.url}&size=64`}/>
+                        <h2 style={textStyle}>
+                        {v.title}
+                        </h2>
+                        <div style={textStyle}>
+                        Time Accessed: {v.lastVisitTime}
+                        </div>
+                    </>
+                )
+            })}
+        </p>
+    )
 }
 
 export default Details
