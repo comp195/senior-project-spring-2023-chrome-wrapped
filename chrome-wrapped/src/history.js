@@ -1,25 +1,4 @@
 /*global chrome*/
-const runScript = () => {
-
-    chrome.history.search({
-        text: '',
-        maxResults: 0,
-        startTime: 0
-    },
-        (data) => {
-            data.forEach(element => {
-                // chrome.history.getVisits(
-                //     // {url: element.url}, 
-                //     // (output) => {
-                //     //     console.log(output);
-                //     // }
-                // )
-                console.log(element.title)
-            });
-            console.log(data.length)
-        }
-    )
-}
 //Given a substring, returns promise of number of total visits of all time to sites containing that substring
 const searchAggregate = (searchQuery) => {
     return new Promise((resolve, reject) => {
@@ -34,21 +13,24 @@ const searchAggregate = (searchQuery) => {
         }
     })
 }
+const urlToDomain = (url) =>{
+    return((new URL(url)).hostname)
+}
 //Given a substring, returns array of visitItems
-const searchRecent = (searchQuery = '', days = -1, topNum = -1) => {
-    const compareVisits = (historyItem1, historyItem2) => {
+const searchRecent = (searchQuery = '', topNum = 5) => {
+    const compareLastVisit = (historyItem1, historyItem2) => {
         return(historyItem2.visitCount - historyItem1.visitCount);
     }
     return new Promise((resolve, reject) => {
         try {
-            getDomains(days, searchQuery).then(data => {
+            chrome.history.search({text:searchQuery, maxResults:0, startTime:-1}, (data) =>{ 
                 //Find top 5 visits
-                data.sort(compareVisits);
+                data.sort(compareLastVisit);
                 if(data.length >= topNum){
                     resolve(data.slice(0, topNum));
                 } else{
                     resolve(data.slice(0, data.length));
-                }
+                } 
             })
         } catch(ex){
             reject(ex);
@@ -57,7 +39,7 @@ const searchRecent = (searchQuery = '', days = -1, topNum = -1) => {
 }
 
 const searchTopVisits = (searchQuery, topNum) => {
-
+    
 }
 //Returns a promise to an array the top {topNum} items within the given range. Defaults to top 5 visits of the full history
     const topVisits = (topNum = 5, days = -1) => {
@@ -139,4 +121,4 @@ const searchTopVisits = (searchQuery, topNum) => {
         })
     }
 
-export default {topVisits, getDomains, searchAggregate, searchRecent}
+export default {topVisits, getDomains, searchAggregate, searchRecent, urlToDomain}
