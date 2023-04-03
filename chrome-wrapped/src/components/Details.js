@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import history from '../history'
+/* global chrome */
 
 const Details = (props) => {
 
@@ -39,8 +40,7 @@ const Details = (props) => {
     return (
         <div>
             <SearchBox filter={filter} setFilter={setFilter}/>
-            <h3 style={textStyle}>Visit Count: {visits}</h3>
-            <h3 style={textStyle}>Last Time Visited: </h3>
+            <h3 style={textStyle}>Total Visit Count: {visits}</h3>
             <h3 style={textStyle}>Most Recent URLs: </h3>
             <RecentVisitList recentVisits={recentVisits} textStyle={textStyle}/>
         </div>
@@ -55,6 +55,13 @@ const SearchBox = ({filter, setFilter}) => {
     return <p>URL contains: <input value={filter} onChange={handleFilterChange}/></p>
 }
 
+const openLink = (url) => {
+    chrome.tabs.create({
+        url: url,
+        active: false
+      })
+}
+
 const RecentVisitList = ({recentVisits, textStyle}) => {
     if (recentVisits.length === 0 || !recentVisits) return null
     console.log(recentVisits)
@@ -64,8 +71,8 @@ const RecentVisitList = ({recentVisits, textStyle}) => {
                 return (
                     <>
                         <div>
-                            <img src={`https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${v.url}&size=16`}/>
-                            <h2 style={textStyle}>
+                            <img src={`https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${v.url}&size=16`} target='_blank'/>
+                            <h2 style={textStyle} onClick={() => openLink(v.url)}>
                                 {v.title}
                             </h2>
                         </div>
