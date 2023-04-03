@@ -63,10 +63,12 @@ const RecentVisitList = ({recentVisits, textStyle}) => {
             {recentVisits.map(v => {
                 return (
                     <>
-                        <image src={`https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${v.url}&size=64`}/>
-                        <h2 style={textStyle}>
-                        {v.title}
-                        </h2>
+                        <div>
+                            <img src={`https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${v.url}&size=16`}/>
+                            <h2 style={textStyle}>
+                                {v.title}
+                            </h2>
+                        </div>
                         <div style={textStyle}>
                         Time Accessed: {v.lastVisitTime}
                         </div>
