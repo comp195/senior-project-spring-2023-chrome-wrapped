@@ -44,8 +44,21 @@ const RingChart = ({NUM_SITES, TIMEFRAME}) => {
     const data = {
         labels: labels,
         datasets: datasets
-      }
-    return (<Doughnut data={ data }/>)
+    }
+
+    const options = {
+        onClick(click, elements){
+            const urlDomain = labels[elements[0].index]
+            console.log(urlDomain)
+        }
+    }
+
+    return (
+        <div style={{padding:'10px'}}>
+            <Doughnut data={ data } options={ options } />
+        </div>
+    )
+
 }
 
 export default RingChart
