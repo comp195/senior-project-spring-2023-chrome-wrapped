@@ -17,6 +17,7 @@ const Details = (props) => {
     const [filter, setFilter] = useState(defaultSearch)
     const [visits, setVisits] = useState(0)
     const [recentVisits, setRecentVisits] = useState([])
+    const [searchType, setSearchType] = useState('Recent')
 
     useEffect(() => {
         //Get the data from the API
@@ -24,25 +25,39 @@ const Details = (props) => {
             .then(response => {
                 setVisits(response)
             })
-        history.searchRecent(filter)
+        if (searchType === 'Recent') {
+            history.searchRecent(filter)
             .then(response => {
-                
-                // const rawDate = new Date(response.lastVisitTime)
-                // const date = rawDate.toLocaleString()
                 setRecentVisits(response.map(v => {
                     return (
                         {...v, lastVisitTime: new Date(v.lastVisitTime).toLocaleString()}
                     )
                 }))
             })
-    }, [filter])
+        }
+        if (searchType === 'Top') {
+            history.searchTopVisits(filter)
+            .then(response => {
+                setRecentVisits(response.map(v => {
+                    return (
+                        {...v, lastVisitTime: new Date(v.lastVisitTime).toLocaleString()}
+                    )
+                }))
+            })
+        }
+    }, [filter, searchType])
 
     return (
         <div>
             <SearchBox filter={filter} setFilter={setFilter}/>
             <h3 style={textStyle}>Total Visit Count: {visits}</h3>
+            <div>
+                Search type:
+                <button onClick={() => setSearchType('Recent')}>Recent</button>
+                <button onClick={() => setSearchType('Top')}>Top Visits</button>
+            </div>
             <h3 style={textStyle}>Most Recent URLs: </h3>
-            <RecentVisitList recentVisits={recentVisits} textStyle={textStyle}/>
+            <RecentVisitList recentVisits={recentVisits} textStyle={textStyle} searchType={searchType}/>
         </div>
     )
 }
@@ -62,7 +77,7 @@ const openLink = (url) => {
       })
 }
 
-const RecentVisitList = ({recentVisits, textStyle}) => {
+const RecentVisitList = ({recentVisits, textStyle, searchType}) => {
     if (recentVisits.length === 0 || !recentVisits) return null
     console.log(recentVisits)
     return (
@@ -79,6 +94,7 @@ const RecentVisitList = ({recentVisits, textStyle}) => {
                         <div style={textStyle}>
                         Time Accessed: {v.lastVisitTime}
                         </div>
+                        {(searchType === 'Top' && (<div>Visit Count: {v.visitCount}</div>))}
                     </>
                 )
             })}
