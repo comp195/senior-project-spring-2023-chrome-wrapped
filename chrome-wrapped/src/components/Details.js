@@ -4,7 +4,7 @@ import history from '../history'
 
 const Details = (props) => {
 
-    const defaultSearch = props.search || ''
+    const defaultSearch = props.query || ''
 
     const textStyle = {
         backgroundColor: "inherit",

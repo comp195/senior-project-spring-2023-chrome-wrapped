@@ -1,8 +1,18 @@
+import { useState } from 'react'
 import Overview from './Overview'
 import Details from './Details'
 import Trends from './Trends'
 
-const Body = ({ currentTab }) => {
+const Body = ({ currentTab, setCurrentTab }) => {
+    const [query, setQuery] = useState('')
+
+    const detailsQuery = (query) => {
+        setQuery(query) //set the url from the ring chart
+        console.log(query)
+        setCurrentTab('Details')
+    }
+    
+
     let renderText = 'text'
     const defaultRenderStyle = {
         margin: 10,
@@ -15,10 +25,10 @@ const Body = ({ currentTab }) => {
     console.log(currentTab)
     switch (currentTab) {
         case'Overview':
-            return (<Overview/>)
+            return (<Overview detailsQuery={detailsQuery}/>)
             break
         case'Details':
-            return (<Details/>)
+            return (<Details query={query}/>)
             break
         case'Trends':
             return (<Trends/>)

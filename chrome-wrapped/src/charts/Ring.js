@@ -3,7 +3,7 @@ import Chart from "chart.js/auto"
 import { Doughnut } from "react-chartjs-2"
 import history from '../history'
 
-const RingChart = ({NUM_SITES, TIMEFRAME}) => {
+const RingChart = ({NUM_SITES, TIMEFRAME, detailsQuery}) => {
     const [chromeData, setChromeData] = useState([])
     useEffect(() => {
         history.topVisits(NUM_SITES, TIMEFRAME)
@@ -19,13 +19,6 @@ const RingChart = ({NUM_SITES, TIMEFRAME}) => {
 
 
     const labels = chromeData.map(h => h.url)
-
-    // const newData = []
-    // chromeData.forEach((h, index) => {
-    //     if(chromeData.indexOf(h) === index){
-
-    //     }
-    // })
 
     const visitCounts = chromeData.map(h => h.visitCount)
     const datasets = [{
@@ -50,6 +43,7 @@ const RingChart = ({NUM_SITES, TIMEFRAME}) => {
         onClick(click, elements){
             const urlDomain = labels[elements[0].index]
             console.log(urlDomain)
+            detailsQuery(urlDomain)
         }
     }
 

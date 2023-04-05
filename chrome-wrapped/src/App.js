@@ -10,7 +10,7 @@ const App = () => {
     <div>
       <Header/>
       <TabRow currentTab={currentTab} setCurrentTab={setCurrentTab}/>
-      <Body currentTab={currentTab}/>
+      <Body currentTab={currentTab} setCurrentTab={setCurrentTab}/>
     </div>
   )
 }
