@@ -3,17 +3,19 @@ import Chart from "chart.js/auto"
 import { Doughnut } from "react-chartjs-2"
 import history from '../history'
 
-const RingChart = ({NUM_SITES, TIMEFRAME, detailsQuery}) => {
+const RingChart = ({NUM_SITES, TIMEFRAME, searchQuery}) => {
     const [chromeData, setChromeData] = useState([])
     useEffect(() => {
         history.topVisits(NUM_SITES, TIMEFRAME)
             .then(response => {
                 setChromeData(response)
             })
+            history.getActiveTimes(0)
     }, [NUM_SITES, TIMEFRAME])
-    console.log(TIMEFRAME)
     if (!chromeData || chromeData.length < 1) {
-        console.log('Chrome data not loaded, returning null')
+        //Chrome Data not loaded, returned null
+        //Note: because of how promises work, the graph is first loaded 
+        //without data and then rerenders once a promise from the chrome API is fufilled
         return (<div></div>)
     }
 
@@ -43,7 +45,7 @@ const RingChart = ({NUM_SITES, TIMEFRAME, detailsQuery}) => {
         onClick(click, elements){
             const urlDomain = labels[elements[0].index]
             console.log(urlDomain)
-            detailsQuery(urlDomain)
+            searchQuery(urlDomain)
         }
     }
 

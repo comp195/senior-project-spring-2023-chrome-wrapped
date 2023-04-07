@@ -2,24 +2,22 @@ import { useState, useEffect } from 'react'
 import history from '../history'
 /* global chrome */
 
-
-const textStyle = {
-    backgroundColor: "inherit",
-    margin: "auto",
-    padding: "1%",
-    maxWidth: "90%",
-    display: "flex"
-}
-
-const Details = (props) => {
+const Search = (props) => {
 
     const defaultSearch = props.query || ''
+
+    const textStyle = {
+        backgroundColor: "inherit",
+        margin: "auto",
+        padding: "1%",
+        maxWidth: "90%",
+        display: "flex"
+    }
 
     const [filter, setFilter] = useState(defaultSearch)
     const [visits, setVisits] = useState(0)
     const [recentVisits, setRecentVisits] = useState([])
     const [searchType, setSearchType] = useState('Recent')
-    const tabSearchType = searchType
 
     useEffect(() => {
         //Get the data from the API
@@ -53,10 +51,10 @@ const Details = (props) => {
         <div>
             <SearchBox filter={filter} setFilter={setFilter}/>
             <h3 style={textStyle}>Total Visit Count: {visits}</h3>
-            <div style={textStyle} className='siteSearch'>
+            <div>
                 Search type:
-                <button name="Recent" class={tabSearchType=== 'Recent' ? 'select' : ''} onClick={() => setSearchType('Recent')}>Recent</button>
-                <button name="Top" class={tabSearchType=== 'Top' ? 'select' : ''} onClick={() => setSearchType('Top')}>Top Visits</button>
+                <button onClick={() => setSearchType('Recent')}>Recent</button>
+                <button onClick={() => setSearchType('Top')}>Top Visits</button>
             </div>
             <h3 style={textStyle}>Most Recent URLs: </h3>
             <RecentVisitList recentVisits={recentVisits} textStyle={textStyle} searchType={searchType}/>
@@ -69,7 +67,7 @@ const SearchBox = ({filter, setFilter}) => {
         console.log(event.target.value)
         setFilter(event.target.value)
     }
-    return <div style={textStyle}>URL contains: <input value={filter} onChange={handleFilterChange}/></div>
+    return <p>URL contains: <input value={filter} onChange={handleFilterChange}/></p>
 }
 
 const openLink = (url) => {
@@ -104,4 +102,4 @@ const RecentVisitList = ({recentVisits, textStyle, searchType}) => {
     )
 }
 
-export default Details
+export default Search

@@ -13,7 +13,6 @@ const searchAggregate = (searchQuery) => {
         }
     })
 }
-
 const urlToDomain = (url) =>{
     return((new URL(url)).hostname)
 }
@@ -38,6 +37,7 @@ const searchHistory = (searchQuery = '', days = -1) =>{
 }
 //Given a substring, returns array of historyItems Sorted by recent
 const searchRecent = (searchQuery = '', topNum = 15) => {
+
     //For sorting function
     const compareLastVisit = (historyItem1, historyItem2) => {
         return(historyItem2.lastVisitTime - historyItem1.lastVisitTime);
@@ -108,6 +108,7 @@ const topVisits = (topNum = 5, days = -1) => {
     })
 }
 //Get list of all domains, combine visit counts for multiple visits to domains
+//Days = Days x 24 hours from current date
 const getDomains = (days = -1, search = '') => {
     return new Promise((resolve, reject) => {
         try {           
@@ -154,5 +155,46 @@ const getDomains = (days = -1, search = '') => {
         }
     })
 }
+//Return number of site on a certain day
+const getActiveTimes = (days = 0) => {
+    //input: Days since current date
+    //Get beginning of the day
+    let start = new Date();
+    start.setTime(start.getTime() - days * 86400000) // Milliseconds in a day
+    start.setHours(0,0,0,0);
+    //Get end of the day
+    let end = new Date();
+    end.setTime(end.getTime() - days * 86400000)
+    end.setHours(23,59,59,999);
+    console.log("Start: ", start.getHours(), " End: ", end.getHours())
+    return new Promise((resolve, reject)=>{
+        try{
+            chrome.history.search({text: '', maxResults: 0, startTime:start.getTime(), endTime:end.getTime()}, (data) =>{
+                let splicedArray = []
+                let arrayStart = 0
+                let arrayEnd = 0
+                //Slice array into 3 hour ranges
+                console.log("data: ", data)
+                for(let i = 1; i <= 8; i++){
+                    //Find last item within range
+                    //3600000  miliseconds = 1 hours
+                    while((arrayEnd < data.length) && (data[arrayEnd].lastVisitTime < start.getTime() + i * 3 * 3600000 )){arrayEnd++}
+                    splicedArray.push(data.slice(arrayStart, arrayEnd))
+                    arrayStart = arrayEnd
+                }
+                 console.log("Spliced array", splicedArray)
+                // for(let j = 0; j < 8; j++){
+                //     console.log("Spliced array", splicedArray[j])
+                // }
+                //Aggregate visit count
+                resolve(splicedArray)
+            })
+        }
+        catch(ex){
+            reject(ex)
+        }
+    })
 
-export default {topVisits, getDomains, searchAggregate, searchRecent, searchTopVisits, urlToDomain}
+}
+
+export default {topVisits, searchAggregate, searchRecent, searchTopVisits, getActiveTimes}
