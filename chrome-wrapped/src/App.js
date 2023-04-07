@@ -17,13 +17,15 @@ const App = () => {
 
 const Header = () => {
   const headerStyle = {
-    margin: "auto",
-    width: "100%",
-    padding: 10,
-    textAlign: "center",
+    leftMargin: "auto",
+    rightMargin: "auto",
+    padding: 0,
+    width: 440,
+    height: 65,
+    display: "block"
   }
   return (
-    <h1 style={headerStyle}>Chrome Wrapped (TM)</h1>
+    <img src='./Chrome Wrapped Logo.png' alt='Chrome Wrapped Logo' style={headerStyle}></img>
   )
 }
 const TabRow = ({currentTab, setCurrentTab}) => {

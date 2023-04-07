@@ -11,9 +11,9 @@
   }
   },
   "icons":{
-    "128":"./chromeIcon128.png",
-    "48":"./chromeIcon48.png",
-    "16":"./chromeIcon16.png"
+    "128":"./Icon 128.png",
+    "48":"./Icon 48.png",
+    "16":"./Icon 16.png"
 
   },
   "permissions": [
