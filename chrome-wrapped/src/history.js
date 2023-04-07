@@ -181,10 +181,10 @@ const getActiveTimes = (days = 0) => {
                     splicedArray.push(data.slice(arrayStart, arrayEnd))
                     arrayStart = arrayEnd
                 }
-                console.log("Spliced array", splicedArray)
-                for(let j = 0; j < 8; j++){
-                    console.log("Spliced array", splicedArray[j])
-                }
+                 console.log("Spliced array", splicedArray)
+                // for(let j = 0; j < 8; j++){
+                //     console.log("Spliced array", splicedArray[j])
+                // }
                 //Aggregate visit count
                 resolve(splicedArray)
             })
