@@ -166,22 +166,29 @@ const getActiveTimes = (days = 0) => {
     let end = new Date();
     end.setTime(end.getTime() - days * 86400000)
     end.setHours(23,59,59,999);
-    console.log("Start: ", start.getHours(), " End: ", end.getHours())
+    //console.log("Start: ", start.getHours(), " End: ", end.getHours())
     return new Promise((resolve, reject)=>{
         try{
             chrome.history.search({text: '', maxResults: 0, startTime:start.getTime(), endTime:end.getTime()}, (data) =>{
-                let splicedArray = []
+                let splicedArray = [0, 0, 0, 0, 0, 0, 0, 0]
                 let arrayStart = 0
                 let arrayEnd = 0
                 //Slice array into 3 hour ranges
                 console.log("data: ", data)
-                for(let i = 1; i <= 8; i++){
-                    //Find last item within range
-                    //3600000  miliseconds = 1 hours
-                    while((arrayEnd < data.length) && (data[arrayEnd].lastVisitTime < start.getTime() + i * 3 * 3600000 )){arrayEnd++}
-                    splicedArray.push(data.slice(arrayStart, arrayEnd))
-                    arrayStart = arrayEnd
-                }
+                // for(let i = 1; i <= 8; i++){
+                //     //Find last item within range
+                //     
+                   
+                //     //hile((arrayEnd < data.length) && (data[arrayEnd].lastVisitTime < start.getTime() + i * 3 * 3600000 )){arrayEnd++}
+                //     //splicedArray.push(data.slice(arrayStart, arrayEnd))
+                //     //arrayStart = arrayEnd
+                // }
+                //3600000  miliseconds = 1 hours
+                data.forEach(historyItem => {
+                    let index = Math.round((historyItem.lastVisitTime - start.getTime()) / (3600000 * 3))
+                    splicedArray[index] += 1;
+                })
+                //Only does unique visits for now... should be good?
                  console.log("Spliced array", splicedArray)
                 // for(let j = 0; j < 8; j++){
                 //     console.log("Spliced array", splicedArray[j])
