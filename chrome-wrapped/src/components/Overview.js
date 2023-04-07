@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import RingChart from '../charts/Ring'
 
-const Overview = ({detailsQuery}) => {
+const Overview = ({searchQuery}) => {
     const [time, setTime] = useState('7')
     const [numSites, setNumSites] = useState('5')
     const [currentTabTime, setCurrentTabTime] = useState('1W')
@@ -27,7 +27,7 @@ const Overview = ({detailsQuery}) => {
     return (
         <div>
             
-            <RingChart NUM_SITES={numSites} TIMEFRAME={time} detailsQuery={detailsQuery}/>
+            <RingChart NUM_SITES={numSites} TIMEFRAME={time} searchQuery={searchQuery}/>
             <div className='tabTime'>
                 <label>Time Frame: </label>
                 

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import history from '../history'
 /* global chrome */
 
-const Details = (props) => {
+const Search = (props) => {
 
     const defaultSearch = props.query || ''
 
@@ -102,4 +102,4 @@ const RecentVisitList = ({recentVisits, textStyle, searchType}) => {
     )
 }
 
-export default Details
+export default Search

@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import Overview from './Overview'
-import Details from './Details'
+import Search from './Search'
 import Trends from './Trends'
 
 const Body = ({ currentTab, setCurrentTab }) => {
     const [query, setQuery] = useState('')
 
-    const detailsQuery = (query) => {
+    const searchQuery = (query) => {
         setQuery(query) //set the url from the ring chart
         console.log(query)
-        setCurrentTab('Details')
+        setCurrentTab('Search')
     }
     
 
@@ -25,10 +25,10 @@ const Body = ({ currentTab, setCurrentTab }) => {
     console.log(currentTab)
     switch (currentTab) {
         case'Overview':
-            return (<Overview detailsQuery={detailsQuery}/>)
+            return (<Overview searchQuery={searchQuery}/>)
             break
-        case'Details':
-            return (<Details query={query}/>)
+        case'Search':
+            return (<Search query={query}/>)
             break
         case'Trends':
             return (<Trends/>)
