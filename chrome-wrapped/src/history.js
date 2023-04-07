@@ -37,7 +37,7 @@ const searchHistory = (searchQuery = '', days = -1) =>{
     })
 }
 //Given a substring, returns array of historyItems Sorted by recent
-const searchRecent = (searchQuery = '', topNum = 5) => {
+const searchRecent = (searchQuery = '', topNum = 15) => {
     //For sorting function
     const compareLastVisit = (historyItem1, historyItem2) => {
         return(historyItem2.lastVisitTime - historyItem1.lastVisitTime);
@@ -61,7 +61,7 @@ const searchRecent = (searchQuery = '', topNum = 5) => {
     })
 }
 //Given a substring, returns array of visitItems
-const searchTopVisits = (searchQuery, topNum) => {
+const searchTopVisits = (searchQuery = '', topNum = 15) => {
         //For sorting function
         const compareLastVisit = (historyItem1, historyItem2) => {
             return(historyItem2.visitCount - historyItem1.visitCount);

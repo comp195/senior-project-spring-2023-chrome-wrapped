@@ -104,17 +104,58 @@ body {
   font-family: 'Montserrat';
   font-weight: "bold";
   text-align: center;
+  white-space: nowrap;
 }
 
 /* Change background color of detail days option buttons on hover */
 .tabTrendDays button:hover {
-  /* background-color: #3e42a7; */
+  background-color: #3e42a7;
   border-bottom: 2px solid #ffffff;
 
 }
 
 /* Create an active/current detail days option tablink class */
 .tabTrendDays button.selected {
+  background-color: #3e42a7;
+  border-bottom: 2px solid #ffffff;
+}
+
+h2 {
+  text-decoration: underline
+}
+
+h2:hover {
+  color: #3e42a7;
+  text-decoration: underline
+}
+
+/* Style the details days buttons inside the tab */
+.siteSearch button {
+  width: flex;
+  border: none;
+  outline: none;
+  background-color: #192a66;
+  color: #ffffff; 
+  float: center;
+  cursor: pointer;
+  font-size: small;
+  font-family: 'Montserrat';
+  font-weight: "bold";
+  text-align: center;
+  white-space: nowrap;
+  text-align: right;
+
+}
+
+/* Change background color of detail days option buttons on hover */
+.siteSearch button:hover {
+  background-color: #3e42a7;
+  border-bottom: 2px solid #ffffff;
+
+}
+
+/* Create an active/current detail days option tablink class */
+.siteSearch button.selected {
   background-color: #3e42a7;
   border-bottom: 2px solid #ffffff;
 }
