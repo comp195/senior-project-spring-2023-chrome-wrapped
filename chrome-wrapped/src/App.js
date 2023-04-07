@@ -10,7 +10,7 @@ const App = () => {
     <div>
       <Header/>
       <TabRow currentTab={currentTab} setCurrentTab={setCurrentTab}/>
-      <Body currentTab={currentTab}/>
+      <Body currentTab={currentTab} setCurrentTab={setCurrentTab}/>
     </div>
   )
 }
@@ -48,7 +48,7 @@ const TabRow = ({currentTab, setCurrentTab}) => {
   return (
     <div style={tabRowStyle} className="tab" id="myDIV">
       <button name="Overview" class={tab==='Overview' ? 'selected' : ''} onClick={() => switchTab('Overview')}>Overview</button>
-      <button name="Details" class={tab==='Details' ? 'selected' : ''} onClick={() => switchTab('Details')}>Details</button>
+      <button name="Search" class={tab==='Search' ? 'selected' : ''} onClick={() => switchTab('Search')}>Search</button>
       <button name="Browsing Trends" class={tab==='Trends' ? 'selected' : ''} onClick={() => switchTab('Trends')}>Trends</button>
       <button name="Options" class={tab==='Options' ? 'selected' : ''} onClick={() => switchTab('Options')}>Options</button>
     </div>
