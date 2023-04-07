@@ -4,15 +4,6 @@ import { Bar } from "react-chartjs-2"
 import history from '../history'
 
 const BarChart = () => {
-    //const [chromeData, setChromeData] = useState([])
-
-    // useEffect(() => {}, [])
-    
-    // if (!chromeData || chromeData.length < 1) {
-    //     console.log('Chrome data not loaded, returning null')
-    //     return (<div></div>)
-    // }
-
     const labels = ['3AM','6AM','9PM','12PM','3PM','6PM','9PM','12AM']
     const datasets = [{
         label: 'Active Times',

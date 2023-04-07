@@ -10,23 +10,17 @@ const RingChart = ({NUM_SITES, TIMEFRAME}) => {
             .then(response => {
                 setChromeData(response)
             })
+            history.getActiveTimes(0)
     }, [NUM_SITES, TIMEFRAME])
-    console.log(TIMEFRAME)
     if (!chromeData || chromeData.length < 1) {
-        console.log('Chrome data not loaded, returning null')
+        //Chrome Data not loaded, returned null
+        //Note: because of how promises work, the graph is first loaded 
+        //without data and then rerenders once a promise from the chrome API is fufilled
         return (<div></div>)
     }
 
 
     const labels = chromeData.map(h => h.url)
-
-    // const newData = []
-    // chromeData.forEach((h, index) => {
-    //     if(chromeData.indexOf(h) === index){
-
-    //     }
-    // })
-
     const visitCounts = chromeData.map(h => h.visitCount)
     const datasets = [{
         label: 'Visit Count',
