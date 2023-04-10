@@ -120,11 +120,11 @@ body {
   border-bottom: 2px solid #ffffff;
 }
 
-h2 {
+span {
   text-decoration: underline
 }
 
-h2:hover {
+span:hover {
   color: #3e42a7;
   text-decoration: underline
 }
@@ -157,4 +157,15 @@ h2:hover {
 .siteSearch button.selected {
   background-color: #3e42a7;
   border-bottom: 2px solid #ffffff;
+}
+
+.container {
+  border: 1px solid #3e42a7;
+  border-radius: 6px;
+  margin: 15px;
+  padding: 10px;
+}
+
+.container:hover{
+  background-color: #3e42a7;
 }

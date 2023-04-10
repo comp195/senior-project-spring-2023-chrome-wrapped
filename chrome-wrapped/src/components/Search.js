@@ -17,7 +17,8 @@ const Search = (props) => {
     const [filter, setFilter] = useState(defaultSearch)
     const [visits, setVisits] = useState(0)
     const [recentVisits, setRecentVisits] = useState([])
-    const [searchType, setSearchType] = useState('Recent')
+    const [searchType, setSearchType] = useState("Recent")
+    const currentSearchType = searchType
 
     useEffect(() => {
         //Get the data from the API
@@ -52,8 +53,8 @@ const Search = (props) => {
             <SearchBox filter={filter} setFilter={setFilter}/>
             <div style={textStyle}>Total Visit Count: {visits}</div>
             <div style={textStyle} className="siteSearch">
-                <button onClick={() => setSearchType('Recent')}>Recent</button>
-                <button onClick={() => setSearchType('Top')}>Top Visits</button>
+                <button name="Recent" class={currentSearchType==='Recent' ? 'Selected' : ''} onClick={() => setSearchType('Recent')}>Recent</button>
+                <button name="Top" class={currentSearchType==='Top' ? 'Selected' : ''} onClick={() => setSearchType('Top')}>Top Visits</button>
             </div>
             <RecentVisitList recentVisits={recentVisits} textStyle={textStyle} searchType={searchType}/>
         </div>
@@ -83,16 +84,15 @@ const RecentVisitList = ({recentVisits, textStyle, searchType}) => {
             {recentVisits.map(v => {
                 return (
                     <>
-                        <div>
+                        <div className="container">
                             <img src={`https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${v.url}&size=16`} target='_blank'/>
                             <h2 style={textStyle} onClick={() => openLink(v.url)}>
                                 {v.title}
                             </h2>
+                            Time Accessed: {v.lastVisitTime}
+                            {(searchType === 'Top' && (<div>Visit Count: {v.visitCount}</div>))}
+
                         </div>
-                        <div style={textStyle}>
-                        Time Accessed: {v.lastVisitTime}
-                        </div>
-                        {(searchType === 'Top' && (<div>Visit Count: {v.visitCount}</div>))}
                     </>
                 )
             })}
