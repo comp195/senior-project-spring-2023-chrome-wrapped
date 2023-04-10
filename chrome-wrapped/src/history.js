@@ -108,8 +108,8 @@ const topVisits = (topNum = 5, days = -1) => {
     })
 }
 //Get list of all domains, combine visit counts for multiple visits to domains
-//Days = Days x 24 hours from current date
 const getDomains = (days = -1, search = '') => {
+    //Days = Days x 24 hours from current date
     return new Promise((resolve, reject) => {
         try {           
             //Specifying Date range  
@@ -155,46 +155,38 @@ const getDomains = (days = -1, search = '') => {
         }
     })
 }
-//Return number of site on a certain day
-const getActiveTimes = (days = 0) => {
-    //input: Days since current date
-    //Get beginning of the day
-    let start = new Date();
-    start.setTime(start.getTime() - days * 86400000) // Milliseconds in a day
-    start.setHours(0,0,0,0);
-    //Get end of the day
-    let end = new Date();
-    end.setTime(end.getTime() - days * 86400000)
-    end.setHours(23,59,59,999);
-    //console.log("Start: ", start.getHours(), " End: ", end.getHours())
+//Return number of site visits per day of the week
+const getActiveTimes = () => {
+    //Javascript is dumb and I hate it so I couldn't figure out how to make this 2d array better
+    //WHICH ISN'T A 2D ARRAY BUT ACTUALLY AN ARRAY OF ARRAYS ACCORDING TO STACK OVERFLOW APPARENTLY
+    let timeRange = [[0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0]]
+
     return new Promise((resolve, reject)=>{
         try{
-            chrome.history.search({text: '', maxResults: 0, startTime:start.getTime(), endTime:end.getTime()}, (data) =>{
-                let splicedArray = [0, 0, 0, 0, 0, 0, 0, 0]
-                let arrayStart = 0
-                let arrayEnd = 0
-                //Slice array into 3 hour ranges
-                console.log("data: ", data)
-                // for(let i = 1; i <= 8; i++){
-                //     //Find last item within range
-                //     
-                   
-                //     //hile((arrayEnd < data.length) && (data[arrayEnd].lastVisitTime < start.getTime() + i * 3 * 3600000 )){arrayEnd++}
-                //     //splicedArray.push(data.slice(arrayStart, arrayEnd))
-                //     //arrayStart = arrayEnd
-                // }
-                //3600000  miliseconds = 1 hours
-                data.forEach(historyItem => {
-                    let index = Math.round((historyItem.lastVisitTime - start.getTime()) / (3600000 * 3))
-                    splicedArray[index] += 1;
+            chrome.history.search({text: '', maxResults: 0, startTime:0}, (data) =>{
+                //Create 2d array of days of week/time of day
+                
+                data.forEach(item => {//Get each unique visit
+                    chrome.history.getVisits({url:item.url}, (visitArray) => {
+                        visitArray.forEach(visit=>{
+                            let date = new Date(visit.visitTime)
+                            let week = date.getDay();
+                            
+                            //Slice array into 3 hour ranges
+                            //3600000  miliseconds = 1 hours
+                            let time = Math.round(date.getHours() / 3)
+                            timeRange[week][time] += 1;
+                        })
+                    })  
                 })
                 //Only does unique visits for now... should be good?
-                 console.log("Spliced array", splicedArray)
+                 console.log("Spliced array", timeRange)
                 // for(let j = 0; j < 8; j++){
                 //     console.log("Spliced array", splicedArray[j])
                 // }
                 //Aggregate visit count
-                resolve(splicedArray)
+                resolve(timeRange)
             })
         }
         catch(ex){
