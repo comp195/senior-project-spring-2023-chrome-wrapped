@@ -3,6 +3,13 @@ import Chart from "chart.js/auto"
 import { Bar } from "react-chartjs-2"
 import history from '../history'
 
+// useEffect(() => {
+//     history.getActiveTimes()
+//         .then(() => {
+            
+//         })
+// }, [])
+
 const BarChart = () => {
     const labels = ['3AM','6AM','9PM','12PM','3PM','6PM','9PM','12AM']
     const datasets = [{
