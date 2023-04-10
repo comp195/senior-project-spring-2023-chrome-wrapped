@@ -120,15 +120,6 @@ body {
   border-bottom: 2px solid #ffffff;
 }
 
-span {
-  text-decoration: underline
-}
-
-span:hover {
-  color: #3e42a7;
-  text-decoration: underline
-}
-
 /* Style the details days buttons inside the tab */
 .siteSearch button {
   width: flex;
@@ -168,4 +159,20 @@ span:hover {
 
 .container:hover{
   background-color: #3e42a7;
+}
+
+.container img{
+  float: left;
+  width: 24px;
+  height: 24px;
+}
+
+.container h2 {
+  position: relative;
+  text-decoration: underline
+}
+
+.container h2:hover {
+  color: #141526;
+  text-decoration: underline
 }

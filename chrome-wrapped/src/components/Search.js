@@ -18,7 +18,7 @@ const Search = (props) => {
     const [visits, setVisits] = useState(0)
     const [recentVisits, setRecentVisits] = useState([])
     const [searchType, setSearchType] = useState("Recent")
-    const currentSearchType = searchType
+    // const currentSearchType = searchType
 
     useEffect(() => {
         //Get the data from the API
@@ -52,10 +52,10 @@ const Search = (props) => {
         <div>
             <SearchBox filter={filter} setFilter={setFilter}/>
             <div style={textStyle}>Total Visit Count: {visits}</div>
-            <div style={textStyle} className="siteSearch">
-                <button name="Recent" class={currentSearchType==='Recent' ? 'Selected' : ''} onClick={() => setSearchType('Recent')}>Recent</button>
-                <button name="Top" class={currentSearchType==='Top' ? 'Selected' : ''} onClick={() => setSearchType('Top')}>Top Visits</button>
-            </div>
+            <span style={textStyle} className="siteSearch" >
+                <button name="Recent" class={searchType==='Recent' ? 'selected' : ''} onClick={() => setSearchType('Recent')}>Recent</button>
+                <button name="Top" class={searchType==='Top' ? 'selected' : ''} onClick={() => setSearchType('Top')}>Top Visits</button>
+            </span>
             <RecentVisitList recentVisits={recentVisits} textStyle={textStyle} searchType={searchType}/>
         </div>
     )
@@ -85,10 +85,11 @@ const RecentVisitList = ({recentVisits, textStyle, searchType}) => {
                 return (
                     <>
                         <div className="container">
-                            <img src={`https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${v.url}&size=16`} target='_blank'/>
+                            <img src={`https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${v.url}&size=24`} target='_blank'/>
                             <h2 style={textStyle} onClick={() => openLink(v.url)}>
                                 {v.title}
                             </h2>
+
                             Time Accessed: {v.lastVisitTime}
                             {(searchType === 'Top' && (<div>Visit Count: {v.visitCount}</div>))}
 
