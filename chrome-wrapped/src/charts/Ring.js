@@ -27,11 +27,21 @@ const RingChart = ({NUM_SITES, TIMEFRAME, searchQuery}) => {
         label: 'Visit Count',
         data: visitCounts,
         backgroundColor: [
-            'rgb(42, 26, 216)',
-            'rgb(78, 38, 226)',
-            'rgb(114, 49, 236)',
-            'rgb(149, 61, 245)',
-            'rgb(185, 72, 255)'
+            '#2aa8f2',
+            '#007bff',
+            '#672af2',
+            '#8e2ece',
+            '#9c3daf',
+            '#9c4f96',
+            '#db4d80',
+            '#ff6355',
+            '#ff874a',
+            '#fba949',
+            '#ffc642',
+            '#fae442',
+            '#c4dd3f',
+            '#8bd448',
+            '#00cbc8'
         ],
         hoverOffset: 4
     }]
