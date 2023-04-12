@@ -181,7 +181,7 @@ const getActiveTimes = () => {
                     })  
                 })
                 //Only does unique visits for now... should be good?
-                 console.log("Spliced array", timeRange)
+                // console.log("Spliced array", timeRange)
                 // for(let j = 0; j < 8; j++){
                 //     console.log("Spliced array", splicedArray[j])
                 // }

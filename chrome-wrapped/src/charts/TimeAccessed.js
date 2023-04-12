@@ -3,18 +3,21 @@ import Chart from "chart.js/auto"
 import { Bar } from "react-chartjs-2"
 import history from '../history'
 
-// useEffect(() => {
-//     history.getActiveTimes()
-//         .then(() => {
-            
-//         })
-// }, [])
+const BarChart = ({currentDay}) => {
 
-const BarChart = () => {
+    const [dayData, setDayData] = useState([])
+
+    useEffect(() => {
+        history.getActiveTimes()
+            .then(response => {
+                setDayData(response[currentDay].slice(0,8))
+            })
+    }, [currentDay])
+
     const labels = ['3AM','6AM','9PM','12PM','3PM','6PM','9PM','12AM']
     const datasets = [{
         label: 'Active Times',
-        data: [24,34,66,43,100,23,10,75],
+        data: dayData,
         backgroundColor: [
             'rgba(300, 99, 132, 0.2)',
             'rgba(255, 99, 100, 0.2)',

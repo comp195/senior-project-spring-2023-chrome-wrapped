@@ -1,8 +1,13 @@
-import { useState } from 'react'
-import BarChart from '../charts/TimeAccessed'
+import { useState, useEffect } from 'react'
+import TimeChart from '../charts/TimeAccessed'
 
 const Trends = () => {
-    const [currentDay, setDay] = useState('SUN')
+    const [currentDay, setDay] = useState('0')
+
+    useEffect(() => {
+        const d = new Date()
+        setDay(d.getDay().toString())
+    }, [])
     
     const tabRowStyle = {
         backgroundColor: "inherit",
@@ -17,15 +22,15 @@ const Trends = () => {
         <div>
             <h3><center>General Activity</center></h3>
             <div style={tabRowStyle} className='tabTrendDays'>
-                <button name="SUN" class={currentDay==='SUN' ? 'selected' : ''} onClick={() => setDay('SUN')}>SUN</button>
-                <button name="MON" class={currentDay==='MON' ? 'selected' : ''} onClick={() => setDay('MON')}>MON</button>
-                <button name="TUE" class={currentDay==='TUE' ? 'selected' : ''} onClick={() => setDay('TUE')}>TUE</button>
-                <button name="WED" class={currentDay==='WED' ? 'selected' : ''} onClick={() => setDay('WED')}>WED</button>
-                <button name="THR" class={currentDay==='THR' ? 'selected' : ''} onClick={() => setDay('THR')}>THR</button>
-                <button name="FRI" class={currentDay==='FRI' ? 'selected' : ''} onClick={() => setDay('FRI')}>FRI</button>
-                <button name="SAT" class={currentDay==='SAT' ? 'selected' : ''} onClick={() => setDay('SAT')}>SAT</button>
+                <button name="0" class={currentDay==='0' ? 'selected' : ''} onClick={() => setDay('0')}>SUN</button>
+                <button name="1" class={currentDay==='1' ? 'selected' : ''} onClick={() => setDay('1')}>MON</button>
+                <button name="2" class={currentDay==='2' ? 'selected' : ''} onClick={() => setDay('2')}>TUE</button>
+                <button name="3" class={currentDay==='3' ? 'selected' : ''} onClick={() => setDay('3')}>WED</button>
+                <button name="4" class={currentDay==='4' ? 'selected' : ''} onClick={() => setDay('4')}>THR</button>
+                <button name="5" class={currentDay==='5' ? 'selected' : ''} onClick={() => setDay('5')}>FRI</button>
+                <button name="6" class={currentDay==='6' ? 'selected' : ''} onClick={() => setDay('6')}>SAT</button>
             </div>
-            <BarChart/>
+            <TimeChart currentDay={currentDay}/>
         </div>
     )
 }

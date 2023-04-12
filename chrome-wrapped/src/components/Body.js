@@ -8,7 +8,6 @@ const Body = ({ currentTab, setCurrentTab }) => {
 
     const searchQuery = (query) => {
         setQuery(query) //set the url from the ring chart
-        console.log(query)
         setCurrentTab('Search')
     }
     
@@ -22,7 +21,6 @@ const Body = ({ currentTab, setCurrentTab }) => {
         border: 3
     }
     let renderStyle = null
-    console.log(currentTab)
     switch (currentTab) {
         case'Overview':
             return (<Overview searchQuery={searchQuery}/>)

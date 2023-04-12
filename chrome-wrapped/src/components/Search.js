@@ -63,7 +63,6 @@ const Search = (props) => {
 
 const SearchBox = ({filter, setFilter}) => {
     const handleFilterChange = event => {
-        console.log(event.target.value)
         setFilter(event.target.value)
     }
     return <h3 style={textStyle}>Search: <input value={filter} onChange={handleFilterChange}/></h3>
@@ -78,7 +77,6 @@ const openLink = (url) => {
 
 const RecentVisitList = ({recentVisits, textStyle, searchType}) => {
     if (recentVisits.length === 0 || !recentVisits) return null
-    console.log(recentVisits)
     return (
         <p>
             {recentVisits.map(v => {

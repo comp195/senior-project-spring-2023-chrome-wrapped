@@ -54,7 +54,6 @@ const RingChart = ({NUM_SITES, TIMEFRAME, searchQuery}) => {
     const options = {
         onClick(click, elements){
             const urlDomain = labels[elements[0].index]
-            console.log(urlDomain)
             searchQuery(urlDomain)
         }
     }
