@@ -166,27 +166,40 @@ const getActiveTimes = () => {
         try{
             chrome.history.search({text: '', maxResults: 0, startTime:0}, (data) =>{
                 //Create 2d array of days of week/time of day
-                
+                let promises = [] //Array of promise for each data entry
                 data.forEach(item => {//Get each unique visit
-                    chrome.history.getVisits({url:item.url}, (visitArray) => {
-                        visitArray.forEach(visit=>{
-                            let date = new Date(visit.visitTime)
-                            let week = date.getDay();
-                            
-                            //Slice array into 3 hour ranges
-                            //3600000  miliseconds = 1 hours
-                            let time = Math.round(date.getHours() / 3)
-                            timeRange[week][time] += 1;
-                        })
-                    })  
+                    let entryDate = new Promise((resolve, reject)=>{
+                        try{
+                            chrome.history.getVisits({url:item.url}, (visitArray) => {
+                                visitArray.forEach(visit=>{
+                                    let date = new Date(visit.visitTime)
+                                    let week = date.getDay();
+                                    
+                                    //Slice array into 3 hour ranges
+                                    let time = Math.round(date.getHours() / 3)
+                                    timeRange[week][time] += 1;//Update timeRange
+                                    
+                                })
+                                resolve() //Golly I sure hope this doesn't have a race condition and I have to make a mutex lock
+                            }) 
+                        }
+                        catch(ex){
+                            console.log("Failed to get getVisits value");
+                            reject(ex)
+                        }
+                    })
+                     
+                })
+                Promise.all(promises).then(()=>{
+                    resolve(timeRange)
                 })
                 //Only does unique visits for now... should be good?
-                // console.log("Spliced array", timeRange)
+                 
                 // for(let j = 0; j < 8; j++){
                 //     console.log("Spliced array", splicedArray[j])
                 // }
                 //Aggregate visit count
-                resolve(timeRange)
+                
             })
         }
         catch(ex){

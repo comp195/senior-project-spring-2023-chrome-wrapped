@@ -51,7 +51,7 @@ const Search = (props) => {
     return (
         <div>
             <SearchBox filter={filter} setFilter={setFilter}/>
-            <div style={textStyle}>Total Visit Count: {visits}</div>
+            <div style={textStyle}>{visits} visits</div>
             <span style={textStyle} className="siteSearch" >
                 <button name="Recent" class={searchType==='Recent' ? 'selected' : ''} onClick={() => setSearchType('Recent')}>Recent</button>
                 <button name="Top" class={searchType==='Top' ? 'selected' : ''} onClick={() => setSearchType('Top')}>Top Visits</button>
@@ -89,7 +89,7 @@ const RecentVisitList = ({recentVisits, textStyle, searchType}) => {
                             </h2>
 
                             Time Accessed: {v.lastVisitTime}
-                            {(searchType === 'Top' && (<div>Visit Count: {v.visitCount}</div>))}
+                            {(searchType === 'Top' && (<div>{v.visitCount} visits</div>))}
 
                         </div>
                     </>

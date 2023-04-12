@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Overview from './Overview'
 import Search from './Search'
 import Trends from './Trends'
+import About from './About'
 
 const Body = ({ currentTab, setCurrentTab }) => {
     const [query, setQuery] = useState('')
@@ -31,9 +32,10 @@ const Body = ({ currentTab, setCurrentTab }) => {
         case'Trends':
             return (<Trends/>)
             break
-        case'Options':
+        case'About':
             renderStyle = {...defaultRenderStyle, backgroundColor: "yellow"}
             renderText = 'Options'
+            return (<About/>)
             break
         default:
             renderStyle = {...defaultRenderStyle, backgroundColor: "red"}
