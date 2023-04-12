@@ -167,10 +167,12 @@ const getActiveTimes = () => {
             chrome.history.search({text: '', maxResults: 0, startTime:0}, (data) =>{
                 //Create 2d array of days of week/time of day
                 let promises = [] //Array of promise for each data entry
+                data.sort(function(a, b){return(b.lastVisitTime - a.lastVisitTime)})
                 data.forEach(item => {//Get each unique visit
                     let entryDate = new Promise((resolve, reject)=>{
                         try{
                             chrome.history.getVisits({url:item.url}, (visitArray) => {
+                                // console.log("Visit Data: ", visitArray)
                                 visitArray.forEach(visit=>{
                                     let date = new Date(visit.visitTime)
                                     let week = date.getDay();
@@ -180,7 +182,7 @@ const getActiveTimes = () => {
                                     timeRange[week][time] += 1;//Update timeRange
                                     
                                 })
-                                resolve() //Golly I sure hope this doesn't have a race condition and I have to make a mutex lock
+                                resolve(timeRange) //Golly I sure hope this doesn't have a race condition and I have to make a mutex lock
                             }) 
                         }
                         catch(ex){
@@ -188,7 +190,7 @@ const getActiveTimes = () => {
                             reject(ex)
                         }
                     })
-                     
+                    promises.push(entryDate)
                 })
                 Promise.all(promises).then(()=>{
                     resolve(timeRange)

@@ -10,6 +10,8 @@ const BarChart = ({currentDay}) => {
     useEffect(() => {
         history.getActiveTimes()
             .then(response => {
+                console.log(response)
+                console.log("0, 4 data", response[1][4])
                 setDayData(response[currentDay].slice(0,8))
             })
     }, [currentDay])
