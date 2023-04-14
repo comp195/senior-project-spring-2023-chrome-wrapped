@@ -23,4 +23,4 @@ Chrome Wrapped is a Chrome extension that showcases statistics of the user's bro
 - Browsing History CSV Collection 
 
 ## Special Notes
-N/A
+Report any bugs/requested features/comments through our reporting [form](https://forms.gle/7hnGy6iebANHyCTCA)
