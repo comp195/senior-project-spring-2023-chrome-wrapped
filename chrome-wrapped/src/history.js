@@ -207,8 +207,16 @@ const getDomains = (days = -1, search = '') => {
 const getActiveTimes = () => {
     //Javascript is dumb and I hate it so I couldn't figure out how to make this 2d array better
     //WHICH ISN'T A 2D ARRAY BUT ACTUALLY AN ARRAY OF ARRAYS ACCORDING TO STACK OVERFLOW APPARENTLY
-    let timeRange = [[0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0]]
+    // let timeRange = [[0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0],
+    // [0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0]]
+    let timeRange = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]
+
 
     return new Promise((resolve, reject)=>{
         try{
@@ -226,7 +234,7 @@ const getActiveTimes = () => {
                                         let date = new Date(visit.visitTime)
                                         let week = date.getDay();
                                         //Slice array into 3 hour ranges
-                                        let time = Math.round(date.getHours() / 3)
+                                        let time = Math.round(date.getHours())
                                         timeRange[week][time] += 1;//Update timeRange
                                     } else{
                                         //console.log("WE GOT EM THAT SILLY GOOFYBALL OF A CHROME DOUBLE COUNT CHEATER")

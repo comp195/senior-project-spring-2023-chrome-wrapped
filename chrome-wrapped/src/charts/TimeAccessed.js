@@ -12,11 +12,13 @@ const BarChart = ({currentDay}) => {
             .then(response => {
                 console.log(response)
                 console.log("0, 4 data", response[1][4])
-                setDayData(response[currentDay].slice(0,8))
+                setDayData(response[currentDay].slice(0,24))
             })
     }, [currentDay])
 
-    const labels = ['3AM','6AM','9PM','12PM','3PM','6PM','9PM','12AM']
+    // const labels = ['3AM','6AM','9PM','12PM','3PM','6PM','9PM','12AM']
+    const labels = ['1AM','2AM','3AM','4AM','5AM','6AM','7AM','8AM','9AM','10AM','11AM','12PM','1PM','2PM','3PM','4PM','5PM','6PM','7PM','8PM','9PM','10PM','11PM','12PM']
+
     const datasets = [{
         label: 'Active Times',
         data: dayData,
@@ -40,7 +42,8 @@ const BarChart = ({currentDay}) => {
             'rgb(153, 102, 255)',
             'rgb(201, 203, 207)'
         ],
-        borderWidth: 1
+        borderWidth: 1,
+        barThickness: 12
     }]
     
     const data = {
