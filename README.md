@@ -6,7 +6,7 @@
 - Michelle Vu (m_vu12@u.pacific.edu)
 
 ## Project Description
-Chrome Wrapped is a Chrome extension that showcases statistics of the user's browsing history
+Chrome Wrapped is a Chrome extension that showcases statistics of the user's browsing history created with React.js for University of the Pacific
 
 ## Project Components
 1. Tabs
@@ -23,4 +23,4 @@ Chrome Wrapped is a Chrome extension that showcases statistics of the user's bro
 - Browsing History CSV Collection 
 
 ## Special Notes
-N/A
+Report any bugs/requested features/comments through our reporting [form](https://forms.gle/7hnGy6iebANHyCTCA)
