@@ -1,4 +1,48 @@
 /*global chrome*/
+//Remove history entries with "generated" tag
+// const figuringOutVisits = () =>{
+//     chrome.history.getVisits({url:"www.google.com"}, (visit) => {
+//         console.log("The google visit: ", visit)
+//     })
+// }
+const removeGeneratedEntries = (data) => {
+    //figuringOutVisits()
+    return new Promise((resolve, reject)=>{
+        try{
+            let promiseList = []
+            //iterate through each historyItem
+            data.forEach(entry =>{
+                let entryPromise = new Promise((resolve, reject) => {
+                    try{
+                        //Remove one visitCount from entry for every item that was generated
+                        if(entry.visitCount > 1){
+                            chrome.history.getVisits({url:entry.url}, (visit) => {
+                                //console.log("Visit: ", visit)
+                                visit.forEach(visitItem=>{
+                                    if(visitItem.transition == 'generated'){
+                                        entry.visitCount -= 1
+                                    }
+                                })
+                                resolve()
+                            })
+                        }
+                    }
+                    catch(ex){
+                        console.log("Unable to remove generated entries ;-;")
+                        reject(ex)
+                    }
+                })
+                promiseList.push(entryPromise);
+            })
+            
+            Promise.all(promiseList).then(resolve(data))
+        }
+        catch(ex){
+            console.log("Unable to remove generated entries ;-;")
+            reject(ex)
+        }
+    })
+}
 //Given a substring, returns promise of number of total visits of all time to sites containing that substring
 const searchAggregate = (searchQuery) => {
     return new Promise((resolve, reject) => {
@@ -69,14 +113,16 @@ const searchTopVisits = (searchQuery = '', topNum = 15) => {
         return new Promise((resolve, reject) => {
             try {
                 searchHistory(searchQuery).then(data => {
-                        //Find top 5 visits
-                        data.sort(compareLastVisit);
+                    removeGeneratedEntries(data).then(newData => {
+                            //Find top 5 visits
+                        newData.sort(compareLastVisit);
                         //Get top X visits
-                        if(data.length >= topNum){
-                            resolve(data.slice(0, topNum));
+                        if(newData.length >= topNum){
+                            resolve(newData.slice(0, topNum));
                         } else{
-                            resolve(data.slice(0, data.length));
+                            resolve(newData.slice(0, newData.length));
                         } 
+                    })
                 })
             }
             catch(ex){
@@ -119,36 +165,38 @@ const getDomains = (days = -1, search = '') => {
             }else{
                 start.setDate(start.getDate() - days)
             }
-            chrome.history.search({text: search, maxResults: 0, startTime:start.getTime()}, (data) =>{
-                let domainList = [data[0]]
-                domainList[0].url = ((new URL(data[0].url)).hostname)
-                //Sort by URL
-                data.sort((historyItem1, historyItem2) => {
-                    return(historyItem2.url - historyItem1.url);
-                });
-                //Aggregate by domain
-                for(let i = 1; i < data.length; i++){
-                    //If domain already in list
-                    try{
-                        //Update visitCount
-                        let index = domainList.findIndex(o => o.url === (new URL(data[i].url)).hostname)
-                        domainList[index].visitCount += data[i].visitCount
-                        //Update domain's last visit time if necessary
-                        domainList[index].lastVisitTime = Math.max(domainList[index].lastVisitTime, data[i].lastVisitTime) 
+            chrome.history.search({text: search, maxResults: 0, startTime:start.getTime()}, (oldData) =>{
+                removeGeneratedEntries(oldData).then((data)=>{
+                    let domainList = [data[0]]
+                    domainList[0].url = ((new URL(data[0].url)).hostname)
+                    //Sort by URL
+                    data.sort((historyItem1, historyItem2) => {
+                        return(historyItem2.url - historyItem1.url);
+                    });
+                    //Aggregate by domain
+                    for(let i = 1; i < data.length; i++){
+                        //If domain already in list
+                        try{
+                            //Update visitCount
+                            let index = domainList.findIndex(o => o.url === (new URL(data[i].url)).hostname)
+                            domainList[index].visitCount += data[i].visitCount
+                            //Update domain's last visit time if necessary
+                            domainList[index].lastVisitTime = Math.max(domainList[index].lastVisitTime, data[i].lastVisitTime) 
 
-                    }
-                    catch{
-                        //Note: lastVisit and title will be horribly incorrect but it's okay, we just need visitCount
-                        domainList.push(data[i])
-                        domainList[domainList.length-1].url = ((new URL(data[i].url)).hostname)
-                        
+                        }
+                        catch{
+                            //Note: lastVisit and title will be horribly incorrect but it's okay, we just need visitCount
+                            domainList.push(data[i])
+                            domainList[domainList.length-1].url = ((new URL(data[i].url)).hostname)
+                            
 
+                        }
                     }
-                }
-                domainList.sort((historyItem1, historyItem2) => {
-                    return(historyItem2.visitCount - historyItem1.visitCount);
-                });
-                resolve(domainList)
+                    domainList.sort((historyItem1, historyItem2) => {
+                        return(historyItem2.visitCount - historyItem1.visitCount);
+                    });
+                    resolve(domainList)
+                })
             })
         } catch(ex){
             reject(ex);
@@ -169,18 +217,20 @@ const getActiveTimes = () => {
                 let promises = [] //Array of promise for each data entry
                 data.sort(function(a, b){return(b.lastVisitTime - a.lastVisitTime)})
                 data.forEach(item => {//Get each unique visit
+                    // console.log("Search Data: ", item)
                     let entryDate = new Promise((resolve, reject)=>{
                         try{
                             chrome.history.getVisits({url:item.url}, (visitArray) => {
-                                // console.log("Visit Data: ", visitArray)
                                 visitArray.forEach(visit=>{
-                                    let date = new Date(visit.visitTime)
-                                    let week = date.getDay();
-                                    
-                                    //Slice array into 3 hour ranges
-                                    let time = Math.round(date.getHours() / 3)
-                                    timeRange[week][time] += 1;//Update timeRange
-                                    
+                                    if(visit.transition != "generated"){
+                                        let date = new Date(visit.visitTime)
+                                        let week = date.getDay();
+                                        //Slice array into 3 hour ranges
+                                        let time = Math.round(date.getHours() / 3)
+                                        timeRange[week][time] += 1;//Update timeRange
+                                    } else{
+                                        //console.log("WE GOT EM THAT SILLY GOOFYBALL OF A CHROME DOUBLE COUNT CHEATER")
+                                    }
                                 })
                                 resolve(timeRange) //Golly I sure hope this doesn't have a race condition and I have to make a mutex lock
                             }) 

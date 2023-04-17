@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Chrome Wrapped",
   "description": "A Chrome Extension to improve browsing history experience",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "action": {
     "default_popup": "index.html",
   "default_title": "Open",
@@ -19,5 +19,10 @@
   "permissions": [
     "history",
     "tabs"
-  ]
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "chromewrapped@pacific.edu"
+    }
+  }
 }
