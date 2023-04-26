@@ -64,7 +64,7 @@ body {
   background-color: #3e42a7;
 }
 
-/* Style the Overview  site buttons inside the tab */
+/* Style the Overview site buttons inside the tab */
 .tabSites button {
   width: 30px;
   border: none;
@@ -134,7 +134,6 @@ body {
   font-weight: "bold";
   text-align: center;
   white-space: nowrap;
-
 }
 
 /* Change background color of detail days option buttons on hover */
@@ -175,4 +174,19 @@ body {
 .container h2:hover {
   color: #141526;
   text-decoration: underline
+}
+
+a:link {
+  color: #ffffff;
+}
+
+a:visited {
+  color: #ffffff;
+
+}
+
+a:hover {
+  color: #141526;
+  background-color: transparent;
+  text-decoration: underline;
 }
