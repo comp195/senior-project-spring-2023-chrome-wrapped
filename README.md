@@ -10,17 +10,10 @@ Chrome Wrapped is a Chrome extension that showcases statistics of the user's bro
 
 ## Project Components
 1. Tabs
-- Main Tab: Overview of browsing history
+- Overview Tab: Overview of browsing history
 - Search Tab: Statistics and breakdown of history
-- Analytics Tab: Trends and Patterns
-- Options: Personalize and set up permissions
-
-2. Pattern Dectection/Analytics
-- Trending Data: Utilize algorithms to detect patterns
-- Graphings: Visualizations of the trends collected
-
-3. Database
-- Browsing History CSV Collection 
+- Trends Tab: Trends of user activity
+- About: Project information
 
 ## Special Notes
 Report any bugs/requested features/comments through our reporting [form](https://forms.gle/7hnGy6iebANHyCTCA)
