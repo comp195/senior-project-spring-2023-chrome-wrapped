@@ -10,13 +10,16 @@ const RingChart = ({NUM_SITES, TIMEFRAME, searchQuery}) => {
             .then(response => {
                 setChromeData(response)
             })
+            .catch(()=>{
+                setChromeData([])
+            })
             history.getActiveTimes(0)
     }, [NUM_SITES, TIMEFRAME])
     if (!chromeData || chromeData.length < 1) {
         //Chrome Data not loaded, returned null
         //Note: because of how promises work, the graph is first loaded 
         //without data and then rerenders once a promise from the chrome API is fufilled
-        return (<div></div>)
+        return (<div style={{margin: 'auto', padding: 20, textAlign: 'center'}}>No data in the selected time period.</div>)
     }
 
 

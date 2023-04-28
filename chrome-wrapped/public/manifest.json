@@ -19,10 +19,5 @@
   "permissions": [
     "history",
     "tabs"
-  ],
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "chromewrapped@pacific.edu"
-    }
-  }
+  ]
 }

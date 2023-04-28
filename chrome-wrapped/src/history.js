@@ -139,12 +139,17 @@ const topVisits = (topNum = 5, days = -1) => {
     return new Promise((resolve, reject) => {
         try {
             getDomains(days).then(data => {
-                //Find top 5 visits
-                data.sort(compareVisits);
-                if(data.length >= topNum){
-                    resolve(data.slice(0, topNum));
-                } else{
-                    resolve(data.slice(0, data.length));
+                if(data){
+                    //Find top 5 visits
+                    data.sort(compareVisits);
+                    if(data.length >= topNum){
+                        resolve(data.slice(0, topNum));
+                    } else{
+                        resolve(data.slice(0, data.length));
+                    }
+                }
+                else{
+                    reject()
                 }
             })
         } catch(ex){
@@ -167,35 +172,39 @@ const getDomains = (days = -1, search = '') => {
             }
             chrome.history.search({text: search, maxResults: 0, startTime:start.getTime()}, (oldData) =>{
                 removeGeneratedEntries(oldData).then((data)=>{
-                    let domainList = [data[0]]
-                    domainList[0].url = ((new URL(data[0].url)).hostname)
-                    //Sort by URL
-                    data.sort((historyItem1, historyItem2) => {
-                        return(historyItem2.url - historyItem1.url);
-                    });
-                    //Aggregate by domain
-                    for(let i = 1; i < data.length; i++){
-                        //If domain already in list
-                        try{
-                            //Update visitCount
-                            let index = domainList.findIndex(o => o.url === (new URL(data[i].url)).hostname)
-                            domainList[index].visitCount += data[i].visitCount
-                            //Update domain's last visit time if necessary
-                            domainList[index].lastVisitTime = Math.max(domainList[index].lastVisitTime, data[i].lastVisitTime) 
+                    if(data.length > 0){
+                        let domainList = [data[0]]
+                        domainList[0].url = ((new URL(data[0].url)).hostname)
+                        //Sort by URL
+                        data.sort((historyItem1, historyItem2) => {
+                            return(historyItem2.url - historyItem1.url);
+                        });
+                        //Aggregate by domain
+                        for(let i = 1; i < data.length; i++){
+                            //If domain already in list
+                            try{
+                                //Update visitCount
+                                let index = domainList.findIndex(o => o.url === (new URL(data[i].url)).hostname)
+                                domainList[index].visitCount += data[i].visitCount
+                                //Update domain's last visit time if necessary
+                                domainList[index].lastVisitTime = Math.max(domainList[index].lastVisitTime, data[i].lastVisitTime) 
 
-                        }
-                        catch{
-                            //Note: lastVisit and title will be horribly incorrect but it's okay, we just need visitCount
-                            domainList.push(data[i])
-                            domainList[domainList.length-1].url = ((new URL(data[i].url)).hostname)
-                            
+                            }
+                            catch{
+                                //Note: lastVisit and title will be horribly incorrect but it's okay, we just need visitCount
+                                domainList.push(data[i])
+                                domainList[domainList.length-1].url = ((new URL(data[i].url)).hostname)
+                                
 
+                            }
                         }
+                        domainList.sort((historyItem1, historyItem2) => {
+                            return(historyItem2.visitCount - historyItem1.visitCount);
+                        });
+                        resolve(domainList)
+                    }else{
+                        resolve(null)
                     }
-                    domainList.sort((historyItem1, historyItem2) => {
-                        return(historyItem2.visitCount - historyItem1.visitCount);
-                    });
-                    resolve(domainList)
                 })
             })
         } catch(ex){
