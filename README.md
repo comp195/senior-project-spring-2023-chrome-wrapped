@@ -15,5 +15,13 @@ Chrome Wrapped is a Chrome extension that showcases statistics of the user's bro
 - Trends Tab: Trends of user activity
 - About: Project information
 
+## Build instructions
+Built using React.js library.
+
+Install dependencies with
+```npm install```
+and build extension using
+```npm run build```
+
 ## Special Notes
 Report any bugs/requested features/comments through our reporting [form](https://forms.gle/7hnGy6iebANHyCTCA)
