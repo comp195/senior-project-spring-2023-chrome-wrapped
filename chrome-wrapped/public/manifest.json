@@ -6,9 +6,7 @@
   "action": {
     "default_popup": "index.html",
   "default_title": "Open",
-  "browser_action":{
     "default_icon":"./chromeIcon128.png"
-  }
   },
   "icons":{
     "128":"./Icon 128.png",

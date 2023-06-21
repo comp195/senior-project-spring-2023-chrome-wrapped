@@ -47,7 +47,7 @@ const removeGeneratedEntries = (data) => {
 const searchAggregate = (searchQuery) => {
     return new Promise((resolve, reject) => {
         try{
-            chrome.history.search({text: searchQuery, maxResults: 0, startTime:-1}, (data) =>{
+            chrome.history.search({text: searchQuery, maxResults: 10000, startTime:0}, (data) =>{
                 let totalVisitCount = 0
                 data.forEach(entry=>{totalVisitCount += entry.visitCount})
                 resolve(totalVisitCount)
@@ -70,7 +70,7 @@ const searchHistory = (searchQuery = '', days = -1) =>{
     }
     return new Promise((resolve, reject) => {
         try {
-            chrome.history.search({text: searchQuery, maxResults: 0, startTime:start.getTime()}, (data) =>{
+            chrome.history.search({text: searchQuery, maxResults: 10000, startTime:start.getTime()}, (data) =>{
                 resolve(data)
             })
         }
@@ -170,7 +170,7 @@ const getDomains = (days = -1, search = '') => {
             }else{
                 start.setDate(start.getDate() - days)
             }
-            chrome.history.search({text: search, maxResults: 0, startTime:start.getTime()}, (oldData) =>{
+            chrome.history.search({text: search, maxResults: 10000, startTime:start.getTime()}, (oldData) =>{
                 removeGeneratedEntries(oldData).then((data)=>{
                     if(data.length > 0){
                         let domainList = [data[0]]
@@ -229,7 +229,7 @@ const getActiveTimes = () => {
 
     return new Promise((resolve, reject)=>{
         try{
-            chrome.history.search({text: '', maxResults: 0, startTime:0}, (data) =>{
+            chrome.history.search({text: '', maxResults: 10000, startTime:0}, (data) =>{
                 //Create 2d array of days of week/time of day
                 let promises = [] //Array of promise for each data entry
                 data.sort(function(a, b){return(b.lastVisitTime - a.lastVisitTime)})
