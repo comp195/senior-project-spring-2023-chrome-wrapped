@@ -1,6 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Chrome Wrapped",
+
   "description": "A Chrome Extension to improve browsing history experience",
   "version": "1.0.2",
   "action": {
@@ -16,5 +17,13 @@
   },
   "permissions": [
     "history"
-  ]
+  ],
+  //Chrome doesn't allow this setting, but other browsers require it. Change manifest.json to this file when using firefox and/or other browsers.
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "chromewrapped@pacific.edu",
+      "strict_min_version": "42.0"
+    }
+  }
+  
 }
