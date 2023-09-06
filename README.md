@@ -8,6 +8,10 @@
 ## Project Description
 Chrome Wrapped is a Chrome extension that showcases statistics of the user's browsing history created with React.js for University of the Pacific
 
+## Download Now!
+Chrome: (Currently fixing)
+Firefox: https://addons.mozilla.org/en-US/firefox/addon/chrome-wrapped/
+
 ## Project Components
 1. Tabs
 - Overview Tab: Overview of browsing history
